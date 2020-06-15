@@ -27,11 +27,17 @@ class TestIndex:
 		index.open()
 		index.check_index()
 
-	def test_join_us(self):
+	def atest_join_us(self):
 		index = Index(self.driver)
 		index.open()
 		join_us = index.open_join_us()
 		join_us.check_join_us()
+
+	def test_news(self):
+		index = Index(self.driver)
+		index.open()
+		news = index.open_news()
+		news.check_news()
 
 
 if __name__ == '__main__':
