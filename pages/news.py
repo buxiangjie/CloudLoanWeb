@@ -13,4 +13,4 @@ class News(Base):
 	company_news = (By.LINK_TEXT, "公司要闻")
 
 	def check_news(self):
-		raise self.find_element(*self.company_news)
+		assert self.find_element(*self.company_news)

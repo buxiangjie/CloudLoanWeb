@@ -13,4 +13,4 @@ class EnterpriseCulture(Base):
 	culture_and_mission = (By.LINK_TEXT, "文化及使命")
 
 	def check_enterprise_culture(self):
-		raise self.find_element(*self.culture_and_mission)
+		assert self.find_element(*self.culture_and_mission)

@@ -10,7 +10,7 @@ from common.base import Base
 
 
 class ProductInt(Base):
-	product_overview = (By.LINK_TEXT, "产品概览")
+	product_overview = (By.LINK_TEXT, "业务概览")
 
 	def check_product_int(self):
-		raise self.find_element(*self.product_overview)
+		assert self.find_element(*self.product_overview)

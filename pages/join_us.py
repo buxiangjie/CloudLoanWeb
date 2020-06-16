@@ -13,4 +13,4 @@ class JoinUs(Base):
 	recruitment = (By.LINK_TEXT, "人才招聘")
 
 	def check_join_us(self):
-		raise self.find_element(*self.recruitment)
+		assert self.find_element(*self.recruitment)
