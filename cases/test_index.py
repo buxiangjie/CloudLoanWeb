@@ -7,13 +7,8 @@
 
 import pytest
 import allure
-import sys
-import os
 
 from pages.index import Index
-
-# 把当前目录的父目录加到sys.path中
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 
 class TestIndex:
@@ -24,6 +19,7 @@ class TestIndex:
 		index = Index(drivers)
 		index.open()
 		index.check_index()
+		assert 0
 
 	@allure.feature("打开加入我们")
 	def test_join_us(self, drivers):
