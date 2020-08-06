@@ -13,7 +13,7 @@ import os
 from pages.index import Index
 
 # 把当前目录的父目录加到sys.path中
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 
 class TestIndex:
