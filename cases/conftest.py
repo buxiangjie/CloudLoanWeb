@@ -80,7 +80,7 @@ def _capture_screenshot():
 	return imagebase64.decode()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='session', autouse=True)
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
