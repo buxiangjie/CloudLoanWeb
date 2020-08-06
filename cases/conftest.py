@@ -87,9 +87,8 @@ def drivers(request):
 	chrome_options = Options()
 	chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--no-sandbox')
-	chrome_options.binary_location = r"F:\Program Files\chromedriver.exe"
 	chrome_options.add_argument('--window-size=1920,1080')
-	driver = webdriver.Chrome(options=chrome_options)
+	driver = webdriver.Chrome(options=chrome_options, executable_path="F:\Program Files\chromedriver.exe")
 	print(f"浏览器{driver}")
 
 	@allure.step("关闭浏览器")
