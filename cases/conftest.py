@@ -80,7 +80,7 @@ def _capture_screenshot():
 	return imagebase64.decode()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='session', autouse=True)
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
@@ -88,7 +88,6 @@ def drivers(request):
 	chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--no-sandbox')
 	chrome_options.add_argument('--window-size=1920,1080')
-	# driver = webdriver.Chrome(executable_path=Common.get_driver_path(), options=chrome_options)
 	driver = webdriver.Chrome(options=chrome_options)
 
 	@allure.step("关闭浏览器")
