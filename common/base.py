@@ -8,6 +8,10 @@
 import os
 import platform
 import allure
+import sys
+
+# 把当前目录的父目录加到sys.path中
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait

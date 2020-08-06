@@ -12,10 +12,14 @@ import allure
 import shutil
 
 from datetime import datetime
-from common.base import Common
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from py._xmlgen import html
+
+import sys
+
+# 把当前目录的父目录加到sys.path中
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 
 # def pytest_html_report_title(report):
