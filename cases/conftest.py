@@ -64,7 +64,9 @@ def pytest_runtest_makereport(item):
 						οnclick="window.open(this.src)" align="right"/></div>'''
 				extra.append(pytest_html.extras.html(htmls))
 		report.extra = extra
-		# report.description = str(item.function.__doc__)
+
+
+# report.description = str(item.function.__doc__)
 
 
 def _capture_screenshot():
@@ -88,7 +90,7 @@ def drivers(request):
 	chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--no-sandbox')
 	chrome_options.add_argument('--window-size=1920,1080')
-	driver = webdriver.Chrome(options=chrome_options, executable_path="F:\Program Files\chromedriver.exe")
+	driver = webdriver.Chrome(options=chrome_options)
 	print(f"浏览器{driver}")
 
 	@allure.step("关闭浏览器")
@@ -96,5 +98,6 @@ def drivers(request):
 		driver.quit()
 		if os.path.exists("./screenshot"):
 			shutil.rmtree("./screenshot")
+
 	request.addfinalizer(fn)
 	return driver
