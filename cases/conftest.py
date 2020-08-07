@@ -14,36 +14,11 @@ import shutil
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from py._xmlgen import html
 
 import sys
 
 # 把当前目录的父目录加到sys.path中
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-
-
-# def pytest_html_report_title(report):
-# 	"""修改文件标题"""
-# 	report.title = "CloudLoan Test Report"
-
-
-# def pytest_configure(config):
-# 	"""修改环境信息"""
-# 	config._metadata['ProjectName'] = "CloudLoanWeb"
-# 	config._metadata['ProjectAddress'] = "https://www.github.com/buxiangjie/CloudLoanWeb"
-# 	config._metadata['JAVA_HOME'] = "0"
-# 	config._metadata.pop("JAVA_HOME")
-
-# @pytest.mark.optionalhook
-# def pytest_html_results_table_header(cells):
-# 	cells.insert(2, html.th('Description'))
-# 	cells.pop()
-#
-#
-# @pytest.mark.optionalhook
-# def pytest_html_results_table_row(report, cells):
-# 	cells.insert(2, html.td(report.description))
-# 	cells.pop()
 
 
 @pytest.mark.hookwrapper
