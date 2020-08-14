@@ -20,6 +20,7 @@ class TestIndex:
 		index.open()
 		index.check_index()
 
+
 	@allure.feature("打开加入我们")
 	def test_join_us(self, drivers):
 		"""加入我们"""
