@@ -19,7 +19,6 @@ class TestIndex:
 		index = Index(drivers)
 		index.open()
 		index.check_index()
-		assert 0
 
 	@allure.feature("打开加入我们")
 	def test_join_us(self, drivers):
