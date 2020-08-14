@@ -70,7 +70,6 @@ def drivers(request):
 	chrome_options.add_argument('--no-sandbox')
 	chrome_options.add_argument('--window-size=1920,1080')
 	driver = webdriver.Chrome(options=chrome_options)
-	print(f"浏览器{driver}")
 
 	@allure.step("关闭浏览器")
 	def fn():
