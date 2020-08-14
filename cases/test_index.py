@@ -57,7 +57,6 @@ class TestIndex:
 		"""企业文化"""
 		index = Index(drivers)
 		index.open()
-		print("哈哈哈")
 		enterprise_culture = index.open_enterprise_culture()
 		enterprise_culture.check_enterprise_culture()
 
