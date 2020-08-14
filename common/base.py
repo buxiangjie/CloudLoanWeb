@@ -21,12 +21,9 @@ from config.configer import Config
 
 class Base:
 
-	def __init__(self, driver, path=None):
+	def __init__(self, driver):
 		self.driver = driver
-		if path is None:
-			self.url = Config().get_item("URL", "prod")
-		else:
-			self.url = self.url = Config().get_item("URL", "test") + path
+		self.url = Config().get_item("URL", "prod")
 
 	@allure.step("打开浏览器")
 	def open(self):
