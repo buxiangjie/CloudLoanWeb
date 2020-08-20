@@ -10,7 +10,7 @@ from common.base import Base
 
 class Index(Base):
 
-	overview = (By.LINK_TEXT, "总览")
+	overview = (By.CSS_SELECTOR, "[class=title]")
 
 	def check_index(self):
 		assert self.find_element(*self.overview)
