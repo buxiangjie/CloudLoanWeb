@@ -65,7 +65,7 @@ def _capture_screenshot():
 		imagebase64 = base64.b64encode(f.read())
 	return imagebase64.decode()
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
