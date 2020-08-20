@@ -14,6 +14,8 @@ import shutil
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from saas.saas_pages.login import Login
+from common.base import Base
 
 import sys
 
@@ -25,7 +27,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="session")
 def env(request):
-	return request.config.get_option("--env")
+	return request.config.getoption("--env")
 
 
 @pytest.mark.hookwrapper
@@ -63,16 +65,15 @@ def _capture_screenshot():
 		imagebase64 = base64.b64encode(f.read())
 	return imagebase64.decode()
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
 	chrome_options = Options()
-	chrome_options.add_argument('--headless')
-	chrome_options.add_argument('--no-sandbox')
+	# chrome_options.add_argument('--headless')
+	# chrome_options.add_argument('--no-sandbox')
 	chrome_options.add_argument('--window-size=1920,1080')
 	driver = webdriver.Chrome(options=chrome_options)
-
 	@allure.step("关闭浏览器")
 	def fn():
 		driver.quit()

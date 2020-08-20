@@ -9,6 +9,7 @@ import os
 import platform
 import allure
 import sys
+import yaml
 
 # 把当前目录的父目录加到sys.path中
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
@@ -81,3 +82,15 @@ class Common:
 			fi = Config().get_item("DriverPath", "Windows")
 		chrome_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + fi
 		return chrome_path
+
+	@staticmethod
+	def get_yaml_data(file, filename: str) -> dict:
+		"""读取yaml文件数据"""
+		try:
+			file = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + f'''/{file}/'''
+			with open(file + filename, 'rb') as f:
+				data = f.read()
+			datas = yaml.load(data, Loader=yaml.FullLoader)
+			return datas
+		except Exception as e:
+			raise e
