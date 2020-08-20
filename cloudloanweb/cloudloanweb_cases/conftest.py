@@ -44,10 +44,6 @@ def pytest_runtest_makereport(item):
 				extra.append(pytest_html.extras.html(htmls))
 		report.extra = extra
 
-
-# report.description = str(item.function.__doc__)
-
-
 def _capture_screenshot():
 	"""截图保存为base64"""
 	now_time = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -59,7 +55,6 @@ def _capture_screenshot():
 	with open(screen_path, 'rb') as f:
 		imagebase64 = base64.b64encode(f.read())
 	return imagebase64.decode()
-
 
 @pytest.fixture(scope='session')
 @allure.step("打开浏览器")
@@ -76,6 +71,5 @@ def drivers(request):
 		driver.quit()
 		if os.path.exists("./screenshot"):
 			shutil.rmtree("./screenshot")
-
 	request.addfinalizer(fn)
 	return driver

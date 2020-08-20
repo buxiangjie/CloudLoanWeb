@@ -9,11 +9,11 @@ import allure
 
 from common.base import Base
 from selenium.webdriver.common.by import By
-from pages.join_us import JoinUs
-from pages.enterprise_culture import EnterpriseCulture
-from pages.news import News
-from pages.product_int import ProductInt
-from pages.about_us import AboutUs
+from cloudloanweb.pages.join_us import JoinUs
+from cloudloanweb.pages.enterprise_culture import EnterpriseCulture
+from cloudloanweb.pages.news import News
+from cloudloanweb.pages.product_int import ProductInt
+from cloudloanweb.pages.about_us import AboutUs
 
 
 class Index(Base):

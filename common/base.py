@@ -21,9 +21,9 @@ from config.configer import Config
 
 class Base:
 
-	def __init__(self, driver):
+	def __init__(self, driver, url="cloudloanweb_prod"):
 		self.driver = driver
-		self.url = Config().get_item("URL", "prod")
+		self.url = Config().get_item("URL", url)
 
 	@allure.step("打开浏览器")
 	def open(self):
@@ -35,7 +35,6 @@ class Base:
 			WebDriverWait(self.driver, times).until(EC.visibility_of_all_elements_located(loc))
 			return self.driver.find_element(*loc)
 		except Exception as e:
-			self.driver.quit()
 			raise e
 
 	def send_keys(self, *loc, text, is_clear=True):
@@ -46,7 +45,6 @@ class Base:
 			else:
 				self.find_element(*loc).send_keys(text)
 		except Exception as e:
-			self.driver.quit()
 			raise e
 
 	@allure.step("点击按钮")
@@ -54,12 +52,21 @@ class Base:
 		try:
 			self.find_element(*loc).click()
 		except Exception as e:
-			self.driver.quit()
 			raise e
 
-	def excute_script(self, js: str, element: str):
+	def excute_script(self, js: str, element=None):
 		"""执行JS命令"""
 		self.driver.execute_script(js, element)
+
+	def scroll(self, x=None, y=None, element= None):
+		"""滚动屏幕"""
+		try:
+			if element:
+				self.excute_script("arguments[0].scrollIntoView();", element)
+			else:
+				self.excute_script(f"window.scrollBy({x},{y})")
+		except Exception as e:
+			raise e
 
 
 class Common:
