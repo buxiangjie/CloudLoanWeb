@@ -17,6 +17,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from common.base import Base
 from saas.saas_pages.login import Login
+from saas.saas_pages.index import Index
 
 # 把当前目录的父目录加到sys.path中
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
@@ -68,7 +69,7 @@ def _capture_screenshot():
 	return imagebase64.decode()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
@@ -88,7 +89,14 @@ def drivers(request):
 	return driver
 
 @allure.step("登录神卫跳转SAAS系统")
-@pytest.fixture(scope="function")
-def saas_index(drivers, env):
+@pytest.fixture(scope="session")
+def login(drivers, env):
 	Base(driver=drivers, url=env).open()
 	Login(driver=drivers, url=env).login(env)
+
+@pytest.fixture(scope="function")
+def back_risk(request):
+	@allure.step("测试用例结束后初始化风控列表")
+	def fn():
+		Index(driver).click_risk_menu()
+	request.addfinalizer(fn)
