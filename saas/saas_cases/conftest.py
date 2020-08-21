@@ -10,20 +10,21 @@ import pytest
 import base64
 import allure
 import shutil
+import sys
 
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from saas.saas_pages.login import Login
 from common.base import Base
-
-import sys
+from saas.saas_pages.login import Login
 
 # 把当前目录的父目录加到sys.path中
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
+
 def pytest_addoption(parser):
 	parser.addoption("--env", default="saas_qa", help="script run enviroment")
+
 
 @pytest.fixture(scope="session")
 def env(request):
@@ -53,6 +54,7 @@ def pytest_runtest_makereport(item):
 				extra.append(pytest_html.extras.html(htmls))
 		report.extra = extra
 
+
 def _capture_screenshot():
 	"""截图保存为base64"""
 	now_time = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -65,6 +67,7 @@ def _capture_screenshot():
 		imagebase64 = base64.b64encode(f.read())
 	return imagebase64.decode()
 
+
 @pytest.fixture(scope="function")
 @allure.step("打开浏览器")
 def drivers(request):
@@ -74,10 +77,18 @@ def drivers(request):
 	# chrome_options.add_argument('--no-sandbox')
 	chrome_options.add_argument('--window-size=1920,1080')
 	driver = webdriver.Chrome(options=chrome_options)
+
 	@allure.step("关闭浏览器")
 	def fn():
 		driver.quit()
 		if os.path.exists("./screenshot"):
 			shutil.rmtree("./screenshot")
+
 	request.addfinalizer(fn)
 	return driver
+
+@allure.step("登录神卫跳转SAAS系统")
+@pytest.fixture(scope="function")
+def saas_index(drivers, env):
+	Base(driver=drivers, url=env).open()
+	Login(driver=drivers, url=env).login(env)
