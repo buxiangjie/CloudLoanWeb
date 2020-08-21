@@ -38,6 +38,14 @@ class Base:
 		except Exception as e:
 			raise e
 
+	@allure.step("查找多元素")
+	def find_elements(self, *loc: tuple, times=20):
+		try:
+			WebDriverWait(self.driver, times).until(EC.visibility_of_all_elements_located(loc))
+			return self.driver.find_elements(*loc)
+		except Exception as e:
+			raise e
+
 	def send_keys(self, *loc, text, is_clear=True):
 		try:
 			if is_clear is True:
