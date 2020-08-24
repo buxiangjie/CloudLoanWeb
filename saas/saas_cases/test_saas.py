@@ -50,7 +50,7 @@ class TestSaas:
 		page_credit_detail.check_member_message()
 
 	@allure.title("授信统计")
-	@allure.severity("blocker")
+	@allure.severity("critical")
 	def test_check_credit_statistics(self, drivers, login, back_risk):
 		"""检查授信统计"""
 		page_credit_statistics = Index(drivers).page_credit_statistics()
@@ -65,11 +65,31 @@ class TestSaas:
 
 	@allure.title("进件详情")
 	@allure.severity("blocker")
-	def test_check_apply_detail(self, driver, login, back_risk):
+	def test_check_apply_detail(self, drivers, login, back_risk):
 		"""检查进件详情"""
-		page_apply_detail = Index(driver).page_apply().page_apply_detail()
+		page_apply_detail = Index(drivers).page_apply().page_apply_detail()
 		page_apply_detail.check_apply_detail()
 
+	@allure.title("进件统计")
+	@allure.severity("critical")
+	def test_check_apply_statistics(self, drivers, login, back_risk):
+		"""检查进件统计"""
+		page_apply_statistics = Index(drivers).page_apply_statistics()
+		page_apply_statistics.check_apply_statistics()
+
+	@allure.title("迁徙率")
+	@allure.severity("critical")
+	def test_check_migration_rate(self, drivers, login, back_risk):
+		"""检查迁徙率"""
+		page_migration_rate = Index(drivers).page_migration_rate()
+		page_migration_rate.check_migration_rate()
+
+	@allure.title("放款统计")
+	@allure.severity("critical")
+	def test_check_loan_statistics(self, drivers, login, back_capital):
+		"""检查放款统计"""
+		page_loan_statistics = Index(drivers).page_loan_statistics()
+		page_loan_statistics.check_loan_statistics()
 
 if __name__ == '__main__':
 	pytest.main()

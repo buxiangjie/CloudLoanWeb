@@ -100,3 +100,10 @@ def back_risk(request):
 	def fn():
 		Index(driver).click_risk_menu()
 	request.addfinalizer(fn)
+
+@pytest.fixture(scope="function")
+def back_capital(request):
+	@allure.step("测试用例结束后初始化资金运营列表")
+	def fn():
+		Index(driver).click_capital_operation()
+	request.addfinalizer(fn)
