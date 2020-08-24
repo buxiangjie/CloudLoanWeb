@@ -33,12 +33,43 @@ class TestSaas:
 		page_business_switch = Index(drivers).page_business_switch()
 		page_business_switch.check_business_switch()
 
-	@allure.title("授信列表")
+	@allure.title("授信")
 	@allure.severity("blocker")
 	def test_check_credit(self, drivers, login, back_risk):
 		"""检查授信页面"""
 		page_credit = Index(drivers).page_credit()
 		page_credit.check_credit()
+
+	@allure.title("授信详情")
+	@allure.severity("blocker")
+	def test_check_credit_detail(self, drivers, login, back_risk):
+		"""检查授信详情"""
+		page_credit = Index(drivers).page_credit()
+		page_credit_detail = page_credit.page_credit_detail()
+		page_credit_detail.check_credit_detail()
+		page_credit_detail.check_member_message()
+
+	@allure.title("授信统计")
+	@allure.severity("blocker")
+	def test_check_credit_statistics(self, drivers, login, back_risk):
+		"""检查授信统计"""
+		page_credit_statistics = Index(drivers).page_credit_statistics()
+		page_credit_statistics.check_credit_statistics()
+
+	@allure.title("进件")
+	@allure.severity("blocker")
+	def test_check_apply(self, drivers, login, back_risk):
+		"""检查进件页面"""
+		page_apply = Index(drivers).page_apply()
+		page_apply.check_apply()
+
+	@allure.title("进件详情")
+	@allure.severity("blocker")
+	def test_check_apply_detail(self, driver, login, back_risk):
+		"""检查进件详情"""
+		page_apply_detail = Index(driver).page_apply().page_apply_detail()
+		page_apply_detail.check_apply_detail()
+
 
 if __name__ == '__main__':
 	pytest.main()
