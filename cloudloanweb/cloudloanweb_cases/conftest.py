@@ -21,6 +21,14 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 
+def pytest_addoption(parser):
+	parser.addoption("--env", default="qa", help="script run enviroment")
+
+
+@pytest.fixture(scope="session")
+def env(request):
+	return request.config.getoption("--env")
+
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item):
 	"""
