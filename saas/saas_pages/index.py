@@ -17,6 +17,10 @@ from saas.saas_pages.apply import Apply
 from saas.saas_pages.apply_statistics import ApplyStatistics
 from saas.saas_pages.migration_rate import MigrationRate
 from saas.saas_pages.loan_statistics import LoanStatistics
+from saas.saas_pages.repay_statistics import RepayStatistics
+from saas.saas_pages.asset_list import AssetList
+from saas.saas_pages.operate_log import OperateLog
+from saas.saas_pages.asset_loan_statistics import AssetLoanStatistics
 
 class Index(Base):
 
@@ -29,9 +33,15 @@ class Index(Base):
 	apply = (By.CSS_SELECTOR, "[title=进件]")
 	apply_statistics = (By.CSS_SELECTOR, "[title=进件统计]")
 	migration_rate = (By.CSS_SELECTOR, "[title=迁徙率]")
-	capital_operation = (By.CSS_SELECTOR, "[title=资金运营]")
+	capital_operation = (By.CSS_SELECTOR, "div[title=资金运营]")
 	loan_statistics = (By.CSS_SELECTOR, "a[title=放款统计]")
 	repay_statistics = (By.CSS_SELECTOR, "a[title=还款统计]")
+	asset = (By.CSS_SELECTOR, "div[title=资产]")
+	asset_list = (By.CSS_SELECTOR, "a[title=资产列表]")
+	asset_loan_statistics = (By.CSS_SELECTOR, "a[title=在贷统计]")
+	man = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > a")
+	operate_log = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > div >button")
+
 
 	@allure.step("检查首页标题是否显示")
 	def check_index(self):
@@ -87,5 +97,34 @@ class Index(Base):
 
 	@allure.step("跳转放款统计")
 	def page_loan_statistics(self):
+		self.click_capital_operation()
 		self.element_click(*self.loan_statistics)
 		return LoanStatistics(self.driver)
+
+	@allure.step("跳转还款统计")
+	def page_repay_statistics(self):
+		self.click_capital_operation()
+		self.element_click(*self.repay_statistics)
+		return RepayStatistics(self.driver)
+
+	@allure.step("点击菜单栏资产按钮")
+	def click_asset(self):
+		self.element_click(*self.asset)
+
+	@allure.step("跳转资产列表")
+	def page_asset_list(self):
+		self.click_asset()
+		self.element_click(*self.asset_list)
+		return AssetList(self.driver)
+
+	@allure.step("跳转操作日志")
+	def page_operate_log(self):
+		self.element_click(*self.man)
+		self.element_click(*self.operate_log)
+		return OperateLog(self.driver)
+
+	@allure.step("跳转在贷统计")
+	def page_asset_loan_statistics(self):
+		self.click_asset()
+		self.element_click(*self.asset_loan_statistics)
+		return AssetLoanStatistics(self.driver)

@@ -4,7 +4,7 @@
 @date:2020-05-12 11:26:00
 @describe: 
 """
-
+import datetime
 import os
 import platform
 import allure
@@ -102,3 +102,37 @@ class Common:
 			return datas
 		except Exception as e:
 			raise e
+
+	@staticmethod
+	def get_new_time(when: str, what: str, num: int) -> str:
+		"""
+		:param when: before or after
+		:param what: days,minutes,seconds,hours,weeks
+		:param num: how long time
+		:return: for example 2020-07-28 11:11:11
+		"""
+		global new_times
+		times = datetime.datetime.now()
+		if when == "after":
+			if what == "days":
+				new_times = times + datetime.timedelta(days=num)
+			elif what == "hours":
+				new_times = times + datetime.timedelta(hours=num)
+			elif what == "seconds":
+				new_times = times + datetime.timedelta(seconds=num)
+			elif what == "minutes":
+				new_times = times + datetime.timedelta(minutes=num)
+			elif what == "weeks":
+				new_times = times + datetime.timedelta(weeks=num)
+		elif when == "before":
+			if what == "days":
+				new_times = times - datetime.timedelta(days=num)
+			elif what == "hours":
+				new_times = times - datetime.timedelta(hours=num)
+			elif what == "seconds":
+				new_times = times - datetime.timedelta(seconds=num)
+			elif what == "minutes":
+				new_times = times - datetime.timedelta(minutes=num)
+			elif what == "weeks":
+				new_times = times - datetime.timedelta(weeks=num)
+		return str(new_times).split(".")[0]

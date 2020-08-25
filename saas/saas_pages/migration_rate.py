@@ -2,7 +2,7 @@
 """
 @auth:buxiangjie
 @date:2020-08-24 16:50:00
-@describe: 迁徙率
+@describe: 迁移率
 """
 
 import allure
@@ -14,6 +14,6 @@ class MigrationRate(Base):
 
 	migration_rate = (By.CSS_SELECTOR, "h2[class=title]")
 
-	@allure.step("检查迁徙率")
+	@allure.step("检查迁移率")
 	def check_migration_rate(self):
-		assert self.find_element(*self.check_migration_rate)
+		assert self.find_element(*self.migration_rate)

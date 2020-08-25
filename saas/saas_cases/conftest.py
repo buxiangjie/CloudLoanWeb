@@ -74,8 +74,8 @@ def _capture_screenshot():
 def drivers(request):
 	global driver
 	chrome_options = Options()
-	# chrome_options.add_argument('--headless')
-	# chrome_options.add_argument('--no-sandbox')
+	chrome_options.add_argument('--headless')
+	chrome_options.add_argument('--no-sandbox')
 	chrome_options.add_argument('--window-size=1920,1080')
 	driver = webdriver.Chrome(options=chrome_options)
 
@@ -96,14 +96,21 @@ def login(drivers, env):
 
 @pytest.fixture(scope="function")
 def back_risk(request):
-	@allure.step("测试用例结束后初始化风控列表")
+	@allure.step("测试用例结束后初始化风控")
 	def fn():
 		Index(driver).click_risk_menu()
 	request.addfinalizer(fn)
 
 @pytest.fixture(scope="function")
 def back_capital(request):
-	@allure.step("测试用例结束后初始化资金运营列表")
+	@allure.step("测试用例结束后初始化资金运营")
 	def fn():
 		Index(driver).click_capital_operation()
+	request.addfinalizer(fn)
+
+@pytest.fixture(scope="function")
+def back_asset(request):
+	@allure.step("测试用例结束后初始化资产")
+	def fn():
+		Index(driver).click_asset()
 	request.addfinalizer(fn)
