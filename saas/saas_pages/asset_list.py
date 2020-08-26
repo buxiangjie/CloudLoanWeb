@@ -6,6 +6,7 @@
 """
 
 import allure
+import time
 
 from selenium.webdriver.common.by import By
 from common.base import Base
@@ -31,6 +32,7 @@ class AssetList(Base):
 		loan_start_time.click()
 		loan_end_time.click()
 		self.element_click(*self.search)
+		time.sleep(1)
 		self.element_click(*self.asset_id)
 		return AssetDetail(self.driver)
 

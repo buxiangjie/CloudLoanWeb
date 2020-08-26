@@ -83,6 +83,7 @@ class Index(Base):
 	@allure.step("跳转授信页面")
 	def page_credit(self):
 		self.element_click(*self.risk)
+		time.sleep(1)
 		self.element_click(*self.credit)
 		return Credit(self.driver)
 
@@ -116,6 +117,7 @@ class Index(Base):
 
 	@allure.step("跳转放款统计")
 	def page_loan_statistics(self):
+		time.sleep(1)
 		self.click_capital_operation()
 		time.sleep(1)
 		self.element_click(*self.loan_statistics)
@@ -123,6 +125,7 @@ class Index(Base):
 
 	@allure.step("跳转还款统计")
 	def page_repay_statistics(self):
+		time.sleep(1)
 		self.click_capital_operation()
 		time.sleep(1)
 		self.element_click(*self.repay_statistics)
