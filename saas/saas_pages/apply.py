@@ -14,7 +14,7 @@ from common.base import Base
 class Apply(Base):
 	apply = (By.CSS_SELECTOR, "h2[class=title]")
 	product = (By.CSS_SELECTOR, "tr:nth-child(1) > td:nth-child(4)")
-	apply_operate = (By.CSS_SELECTOR, "i[class='fa fa-eye']")
+	apply_operate = (By.CSS_SELECTOR, "a[href*='applyDetail']")
 	start_time = (By.CSS_SELECTOR, "input[placeholder=开始日期]")
 	end_time = (By.CSS_SELECTOR, "input[placeholder=结束日期]")
 	search = (By.XPATH, "//*[@id='app']/div/section/div/div/div/div/div[2]/div[1]/div[2]/div/div[2]/span/button[1]")

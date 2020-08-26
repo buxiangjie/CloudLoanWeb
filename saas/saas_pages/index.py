@@ -205,6 +205,7 @@ class Index(Base):
 
 	@allure.step("跳转额度中心")
 	def page_quote_center(self):
+		time.sleep(1)
 		self.click_member_quote_management()
 		time.sleep(1)
 		self.element_click(*self.quote_center)
@@ -212,6 +213,7 @@ class Index(Base):
 
 	@allure.step("跳转渠道产品额度")
 	def page_channel_product_quote(self):
+		time.sleep(1)
 		self.click_member_quote_management()
 		self.element_click(*self.channel_product_quote)
 		return ChannelProductQuote(self.driver)
