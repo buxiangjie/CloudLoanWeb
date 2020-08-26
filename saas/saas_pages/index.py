@@ -140,6 +140,7 @@ class Index(Base):
 
 	@allure.step("跳转操作日志")
 	def page_operate_log(self):
+		self.driver.refresh()
 		self.element_click(*self.man)
 		self.element_click(*self.operate_log)
 		return OperateLog(self.driver)
