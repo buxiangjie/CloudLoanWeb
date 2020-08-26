@@ -134,6 +134,7 @@ class Index(Base):
 
 	@allure.step("跳转资产列表")
 	def page_asset_list(self):
+		time.sleep(1)
 		self.click_asset()
 		self.element_click(*self.asset_list)
 		return AssetList(self.driver)
@@ -157,6 +158,7 @@ class Index(Base):
 
 	@allure.step("跳转分账")
 	def page_split(self):
+		time.sleep(1)
 		self.click_finance()
 		self.element_click(*self.split)
 		return Split(self.driver)
