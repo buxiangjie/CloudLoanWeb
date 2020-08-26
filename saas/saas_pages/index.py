@@ -158,7 +158,6 @@ class Index(Base):
 
 	@allure.step("跳转分账")
 	def page_split(self):
-		time.sleep(1)
 		self.click_finance()
 		self.element_click(*self.split)
 		return Split(self.driver)
