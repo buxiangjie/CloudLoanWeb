@@ -46,7 +46,7 @@ class Index(Base):
 	loan_statistics = (By.CSS_SELECTOR, "a[title=放款统计]")
 	repay_statistics = (By.CSS_SELECTOR, "a[title=还款统计]")
 	asset = (By.CSS_SELECTOR, "div[title=资产]")
-	asset_list = (By.CSS_SELECTOR, "a[title=资产列表]")
+	asset_list = (By.CSS_SELECTOR, "a[href*='assetsList']")
 	asset_loan_statistics = (By.CSS_SELECTOR, "a[title=在贷统计]")
 	man = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > a")
 	operate_log = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > div >button")
@@ -59,7 +59,7 @@ class Index(Base):
 	profit_shareing_2019 = (By.CSS_SELECTOR, "a[title=分润2019]")
 	capital_flow = (By.CSS_SELECTOR, "a[title=资金流水]")
 	member_quota_management = (By.CSS_SELECTOR, "div[title='用户/额度管理']")
-	quote_center = (By.CSS_SELECTOR, "a[title=额度中心]")
+	quote_center = (By.CSS_SELECTOR, "a[href*='manageList']")
 	channel_product_quote = (By.CSS_SELECTOR, "a[title=渠道产品额度]")
 
 	@allure.step("检查首页标题是否显示")

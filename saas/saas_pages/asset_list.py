@@ -13,7 +13,7 @@ from common.base import Base
 
 class AssetList(Base):
 	asset_list = (By.CSS_SELECTOR, "h2[class=title]")
-	asset_id = (By.CSS_SELECTOR, "td[class=text-center] > a")
+	asset_id = (By.CSS_SELECTOR, "tr:nth-child(1) > td:nth-child(1) > a")
 	start_time = (By.XPATH, "//*[@id='app']/div/section/div/div/div/div/div[2]/div[1]/div[1]/div/div[1]/div/span[2]/span/span/input[1]")
 	search = (By.XPATH, "//*[@id='app']/div/section/div/div/div/div/div[2]/div[1]/div[2]/div/div[5]/span/button[1]")
 
@@ -31,8 +31,7 @@ class AssetList(Base):
 		loan_start_time.click()
 		loan_end_time.click()
 		self.element_click(*self.search)
-		n = self.find_elements(*self.asset_id)[0]
-		n.click()
+		self.element_click(*self.asset_id)
 		return AssetDetail(self.driver)
 
 
