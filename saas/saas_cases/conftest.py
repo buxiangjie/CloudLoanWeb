@@ -121,3 +121,10 @@ def back_finance(request):
 	def fn():
 		Index(driver).click_finance()
 	request.addfinalizer(fn)
+
+@pytest.fixture(scope="function")
+def back_quote(request):
+	@allure.step("测试用例结束后初始化用户/额度管理")
+	def fn():
+		Index(driver).click_member_quote_management()
+	request.addfinalizer(fn)

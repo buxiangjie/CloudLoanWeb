@@ -203,6 +203,20 @@ class TestSaas:
 		page_capital_flow = Index(drivers).page_capital_flow()
 		page_capital_flow.check_capital_flow()
 
+	@allure.title("额度中心")
+	@allure.severity("blocker")
+	def test_check_quote_center(self, drivers, login, back_quote):
+		"""检查额度中心"""
+		page_quote_center = Index(drivers).page_quote_center()
+		page_quote_center.check_quote_center()
+
+	@allure.title("渠道产品额度")
+	@allure.severity("blocker")
+	def test_check_channel_product_quote(self, drivers, login, back_quote):
+		"""检查渠道产品额度"""
+		page_channel_product_quote = Index(drivers).page_channel_product_quote()
+		page_channel_product_quote.check_channel_product_quote()
+
 
 if __name__ == '__main__':
 	pytest.main()

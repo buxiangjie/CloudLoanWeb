@@ -4,7 +4,7 @@
 @date:2020-05-12 11:26:00
 @describe: saas主页
 """
-
+import time
 import allure
 
 from selenium.webdriver.common.by import By
@@ -28,6 +28,8 @@ from saas.saas_pages.swap import Swap
 from saas.saas_pages.swap_contract_confirm import SwapContractConfirm
 from saas.saas_pages.profit_shareing import ProfitShareing
 from saas.saas_pages.profit_shareing_2019 import ProfitShareing2019
+from saas.saas_pages.quote_center import QuoteCenter
+from saas.saas_pages.channel_product_quote import ChannelProductQuote
 
 
 class Index(Base):
@@ -56,6 +58,9 @@ class Index(Base):
 	profit_shareing = (By.CSS_SELECTOR, "a[title=分润]")
 	profit_shareing_2019 = (By.CSS_SELECTOR, "a[title=分润2019]")
 	capital_flow = (By.CSS_SELECTOR, "a[title=资金流水]")
+	member_quota_management = (By.CSS_SELECTOR, "div[title='用户/额度管理']")
+	quote_center = (By.CSS_SELECTOR, "a[title=额度中心]")
+	channel_product_quote = (By.CSS_SELECTOR, "a[title=渠道产品额度]")
 
 	@allure.step("检查首页标题是否显示")
 	def check_index(self):
@@ -111,12 +116,14 @@ class Index(Base):
 
 	@allure.step("跳转放款统计")
 	def page_loan_statistics(self):
+		time.sleep(1)
 		self.click_capital_operation()
 		self.element_click(*self.loan_statistics)
 		return LoanStatistics(self.driver)
 
 	@allure.step("跳转还款统计")
 	def page_repay_statistics(self):
+		time.sleep(1)
 		self.click_capital_operation()
 		self.element_click(*self.repay_statistics)
 		return RepayStatistics(self.driver)
@@ -188,3 +195,21 @@ class Index(Base):
 		self.click_finance()
 		self.element_click(*self.capital_flow)
 		return CapitalFlow(self.driver)
+
+	@allure.step("点击菜单栏用户/额度管理按钮")
+	def click_member_quote_management(self):
+		self.element_click(*self.member_quota_management)
+
+	@allure.step("跳转额度中心")
+	def page_quote_center(self):
+		time.sleep(1)
+		self.click_member_quote_management()
+		self.element_click(*self.quote_center)
+		return QuoteCenter(self.driver)
+
+	@allure.step("跳转渠道产品额度")
+	def page_channel_product_quote(self):
+		time.sleep(1)
+		self.click_member_quote_management()
+		self.element_click(*self.channel_product_quote)
+		return ChannelProductQuote(self.driver)
