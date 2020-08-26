@@ -21,9 +21,16 @@ from saas.saas_pages.repay_statistics import RepayStatistics
 from saas.saas_pages.asset_list import AssetList
 from saas.saas_pages.operate_log import OperateLog
 from saas.saas_pages.asset_loan_statistics import AssetLoanStatistics
+from saas.saas_pages.split import Split
+from saas.saas_pages.split_report import SplitReport
+from saas.saas_pages.capital_flow import CapitalFlow
+from saas.saas_pages.swap import Swap
+from saas.saas_pages.swap_contract_confirm import SwapContractConfirm
+from saas.saas_pages.profit_shareing import ProfitShareing
+from saas.saas_pages.profit_shareing_2019 import ProfitShareing2019
+
 
 class Index(Base):
-
 	overview = (By.CSS_SELECTOR, "[class=title]")
 	risk_config = (By.CSS_SELECTOR, "[title=风控配置]")
 	business_switch = (By.CSS_SELECTOR, "[title=业务开关]")
@@ -41,7 +48,14 @@ class Index(Base):
 	asset_loan_statistics = (By.CSS_SELECTOR, "a[title=在贷统计]")
 	man = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > a")
 	operate_log = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > div >button")
-
+	finance = (By.CSS_SELECTOR, "div[title=财务]")
+	split = (By.CSS_SELECTOR, "a[title=分账]")
+	split_report = (By.CSS_SELECTOR, "a[title=分账报表]")
+	swap = (By.CSS_SELECTOR, "a[title=债转]")
+	swap_contract_confirm = (By.CSS_SELECTOR, "a[title=债转合同确认]")
+	profit_shareing = (By.CSS_SELECTOR, "a[title=分润]")
+	profit_shareing_2019 = (By.CSS_SELECTOR, "a[title=分润2019]")
+	capital_flow = (By.CSS_SELECTOR, "a[title=资金流水]")
 
 	@allure.step("检查首页标题是否显示")
 	def check_index(self):
@@ -128,3 +142,49 @@ class Index(Base):
 		self.click_asset()
 		self.element_click(*self.asset_loan_statistics)
 		return AssetLoanStatistics(self.driver)
+
+	@allure.step("点击菜单栏财务按钮")
+	def click_finance(self):
+		self.element_click(*self.finance)
+
+	@allure.step("跳转分账")
+	def page_split(self):
+		self.click_finance()
+		self.element_click(*self.split)
+		return Split(self.driver)
+
+	@allure.step("跳转分账报表")
+	def page_split_report(self):
+		self.click_finance()
+		self.element_click(*self.split_report)
+		return SplitReport(self.driver)
+
+	@allure.step("跳转债转")
+	def page_swap(self):
+		self.click_finance()
+		self.element_click(*self.swap)
+		return Swap(self.driver)
+
+	@allure.step("跳转债转合同确认")
+	def page_swap_contract_confirm(self):
+		self.click_finance()
+		self.element_click(*self.swap_contract_confirm)
+		return SwapContractConfirm(self.driver)
+
+	@allure.step("跳转分润")
+	def page_profit_shareing(self):
+		self.click_finance()
+		self.element_click(*self.profit_shareing)
+		return ProfitShareing(self.driver)
+
+	@allure.step("跳转分润2019")
+	def page_profit_shareing_2019(self):
+		self.click_finance()
+		self.element_click(*self.profit_shareing_2019)
+		return ProfitShareing2019(self.driver)
+
+	@allure.step("跳转资金流水")
+	def page_capital_flow(self):
+		self.click_finance()
+		self.element_click(*self.capital_flow)
+		return CapitalFlow(self.driver)

@@ -12,7 +12,7 @@ from common.base import Base
 
 class OperateLog(Base):
 	operate_log = (By.CSS_SELECTOR, "h2[class=title]")
-	operate = (By.CSS_SELECTOR, "#DataTables_Table_10 > tbody > tr:nth-child(1) > td:nth-child(6) > a > i")
+	operate = (By.CSS_SELECTOR, "table[role=grid] > tbody > tr:nth-child(1) > td:nth-child(6) > a > i")
 
 	@allure.step("检查操作日志")
 	def check_operate_log(self):

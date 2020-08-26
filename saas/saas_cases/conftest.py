@@ -114,3 +114,10 @@ def back_asset(request):
 	def fn():
 		Index(driver).click_asset()
 	request.addfinalizer(fn)
+
+@pytest.fixture(scope="function")
+def back_finance(request):
+	@allure.step("测试用例结束后初始化财务")
+	def fn():
+		Index(driver).click_finance()
+	request.addfinalizer(fn)

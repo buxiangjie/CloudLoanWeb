@@ -147,6 +147,62 @@ class TestSaas:
 		page_asset_loan_statistics = Index(drivers).page_asset_loan_statistics()
 		page_asset_loan_statistics.check_asset_loan_statistics()
 
+	@allure.title("分账")
+	@allure.severity("blocker")
+	def test_check_split(self, drivers, login, back_finance):
+		"""检查分账"""
+		page_split = Index(drivers).page_split()
+		page_split.check_split()
+
+	@allure.title("分账报表")
+	@allure.severity("blocker")
+	def test_check_split_report(self, drivers, login, back_finance):
+		"""检查分账报表"""
+		page_split_report = Index(drivers).page_split_report()
+		page_split_report.check_split_report()
+
+	@allure.title("债转")
+	@allure.severity("critical")
+	def test_check_swap(self, drivers, login, back_finance):
+		"""检查债转"""
+		page_swap = Index(drivers).page_swap()
+		page_swap.check_swap()
+
+	@allure.title("债转合同确认")
+	@allure.severity("blocker")
+	def test_check_swap_contract_confirm(self, drivers, login, back_finance):
+		"""债转合同确认"""
+		page_swap_contract_confirm = Index(drivers).page_swap_contract_confirm()
+		page_swap_contract_confirm.check_swap_contract_confirm()
+
+	@allure.title("分润")
+	@allure.severity("blocker")
+	def test_check_profit_shareing(self, drivers, login, back_finance):
+		"""检查分润"""
+		page_profit_shareing = Index(drivers).page_profit_shareing()
+		page_profit_shareing.check_profit_shareing()
+
+	@allure.title("分润分账")
+	@allure.severity("normal")
+	def test_check_profit_shareing_reconciliation(self, drivers, login, back_finance):
+		"""检查分润分账"""
+		page_profit_shareing_reconciliation = Index(drivers).page_profit_shareing().page_reconciliation()
+		page_profit_shareing_reconciliation.check_profit_shareing_reconciliation()
+
+	@allure.title("分润2019")
+	@allure.severity("blocker")
+	def test_check_profit_shareing_2019(self, drivers, login, back_finance):
+		"""检查分润2019"""
+		page_profit_shareing_2019 = Index(drivers).page_profit_shareing_2019()
+		page_profit_shareing_2019.check_profit_shareing_2019()
+
+	@allure.title("资金流水")
+	@allure.severity("critical")
+	def test_check_capital_flow(self, drivers, login, back_finance):
+		"""检查资金流水"""
+		page_capital_flow = Index(drivers).page_capital_flow()
+		page_capital_flow.check_capital_flow()
+
 
 if __name__ == '__main__':
 	pytest.main()
