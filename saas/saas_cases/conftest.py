@@ -99,33 +99,33 @@ def login(drivers, env):
 def back_risk(request):
 	@allure.step("测试用例结束后初始化风控")
 	def fn():
-		Index(driver).click_risk_menu()
+		Index(driver).hidden_menu("0")
 	request.addfinalizer(fn)
 
 @pytest.fixture(scope="function")
 def back_capital(request):
 	@allure.step("测试用例结束后初始化资金运营")
 	def fn():
-		Index(driver).click_capital_operation()
+		Index(driver).hidden_menu("1")
 	request.addfinalizer(fn)
 
 @pytest.fixture(scope="function")
 def back_asset(request):
 	@allure.step("测试用例结束后初始化资产")
 	def fn():
-		Index(driver).click_asset()
+		Index(driver).hidden_menu("2")
 	request.addfinalizer(fn)
 
 @pytest.fixture(scope="function")
 def back_finance(request):
 	@allure.step("测试用例结束后初始化财务")
 	def fn():
-		Index(driver).click_finance()
+		Index(driver).hidden_menu("3")
 	request.addfinalizer(fn)
 
 @pytest.fixture(scope="function")
 def back_quote(request):
 	@allure.step("测试用例结束后初始化用户/额度管理")
 	def fn():
-		Index(driver).click_member_quote_management()
+		Index(driver).hidden_menu("4")
 	request.addfinalizer(fn)

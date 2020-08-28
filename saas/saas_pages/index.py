@@ -76,69 +76,63 @@ class Index(Base):
 		self.element_click(*self.business_switch)
 		return BusinessSwitch(self.driver)
 
-	@allure.step("点击菜单栏风控按钮")
-	def click_risk_menu(self):
-		self.element_click(*self.risk)
+	def show_menu(self, menu_name: str):
+		"""
+		:param menu_name: 风控=0,资金运营=1,资产=2,财务=3,用户/额度管理=4
+		"""
+		self.excute_script(f"document.getElementsByClassName('collapse')[{menu_name}].className='collapse show'")
+
+	def hidden_menu(self, menu_name: str):
+		"""
+		:param menu_name: 风控=0,资金运营=1,资产=2,财务=3,用户/额度管理=4
+		"""
+		self.excute_script(f"document.getElementsByClassName('collapse')[{menu_name}].className='collapse'")
 
 	@allure.step("跳转授信页面")
 	def page_credit(self):
-		self.element_click(*self.risk)
-		time.sleep(1)
+		self.show_menu("0")
 		self.element_click(*self.credit)
 		return Credit(self.driver)
 
 	@allure.step("跳转授信统计")
 	def page_credit_statistics(self):
-		self.click_risk_menu()
+		self.show_menu("0")
 		self.element_click(*self.credit_statistics)
 		return CreditStatistics(self.driver)
 
 	@allure.step("跳转进件")
 	def page_apply(self):
-		self.click_risk_menu()
+		self.show_menu("0")
 		self.element_click(*self.apply)
 		return Apply(self.driver)
 
 	@allure.step("跳转进件统计")
 	def page_apply_statistics(self):
-		self.click_risk_menu()
+		self.show_menu("0")
 		self.element_click(*self.apply_statistics)
 		return ApplyStatistics(self.driver)
 
 	@allure.step("跳转迁徙率")
 	def page_migration_rate(self):
-		self.click_risk_menu()
+		self.show_menu("0")
 		self.element_click(*self.migration_rate)
 		return MigrationRate(self.driver)
 
-	@allure.step("点击菜单栏资金运营按钮")
-	def click_capital_operation(self):
-		self.element_click(*self.capital_operation)
-
 	@allure.step("跳转放款统计")
 	def page_loan_statistics(self):
-		time.sleep(1)
-		self.click_capital_operation()
-		time.sleep(1)
+		self.show_menu("1")
 		self.element_click(*self.loan_statistics)
 		return LoanStatistics(self.driver)
 
 	@allure.step("跳转还款统计")
 	def page_repay_statistics(self):
-		time.sleep(1)
-		self.click_capital_operation()
-		time.sleep(1)
+		self.show_menu("1")
 		self.element_click(*self.repay_statistics)
 		return RepayStatistics(self.driver)
 
-	@allure.step("点击菜单栏资产按钮")
-	def click_asset(self):
-		self.element_click(*self.asset)
-
 	@allure.step("跳转资产列表")
 	def page_asset_list(self):
-		self.click_asset()
-		time.sleep(1)
+		self.show_menu("2")
 		self.element_click(*self.asset_list)
 		return AssetList(self.driver)
 
@@ -151,65 +145,56 @@ class Index(Base):
 
 	@allure.step("跳转在贷统计")
 	def page_asset_loan_statistics(self):
-		self.click_asset()
+		self.show_menu("2")
 		self.element_click(*self.asset_loan_statistics)
 		return AssetLoanStatistics(self.driver)
 
-	@allure.step("点击菜单栏财务按钮")
-	def click_finance(self):
-		self.element_click(*self.finance)
-
 	@allure.step("跳转分账")
 	def page_split(self):
-		self.click_finance()
-		time.sleep(1)
+		self.show_menu("3")
 		self.element_click(*self.split)
 		return Split(self.driver)
 
 	@allure.step("跳转分账报表")
 	def page_split_report(self):
-		self.click_finance()
+		self.show_menu("3")
 		self.element_click(*self.split_report)
 		return SplitReport(self.driver)
 
 	@allure.step("跳转债转")
 	def page_swap(self):
-		self.click_finance()
+		self.show_menu("3")
 		self.element_click(*self.swap)
 		return Swap(self.driver)
 
 	@allure.step("跳转债转合同确认")
 	def page_swap_contract_confirm(self):
-		self.click_finance()
+		self.show_menu("3")
 		self.element_click(*self.swap_contract_confirm)
 		return SwapContractConfirm(self.driver)
 
 	@allure.step("跳转分润")
 	def page_profit_shareing(self):
-		self.click_finance()
+		self.show_menu("3")
 		self.element_click(*self.profit_shareing)
 		return ProfitShareing(self.driver)
 
 	@allure.step("跳转分润2019")
 	def page_profit_shareing_2019(self):
-		self.click_finance()
+		self.show_menu("3")
 		self.element_click(*self.profit_shareing_2019)
 		return ProfitShareing2019(self.driver)
 
 	@allure.step("跳转资金流水")
 	def page_capital_flow(self):
-		self.click_finance()
+		self.show_menu("3")
 		self.element_click(*self.capital_flow)
 		return CapitalFlow(self.driver)
-
-	@allure.step("点击菜单栏用户/额度管理按钮")
-	def click_member_quote_management(self):
-		self.element_click(*self.member_quota_management)
 
 	@allure.step("跳转额度中心")
 	def page_quote_center(self):
 		time.sleep(1)
-		self.click_member_quote_management()
+		self.show_menu("4")
 		time.sleep(1)
 		self.element_click(*self.quote_center)
 		return QuoteCenter(self.driver)
@@ -217,6 +202,6 @@ class Index(Base):
 	@allure.step("跳转渠道产品额度")
 	def page_channel_product_quote(self):
 		time.sleep(1)
-		self.click_member_quote_management()
+		self.show_menu("4")
 		self.element_click(*self.channel_product_quote)
 		return ChannelProductQuote(self.driver)

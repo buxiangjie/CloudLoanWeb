@@ -13,7 +13,7 @@ from common.base import Base
 
 class Credit(Base):
 	title = (By.CSS_SELECTOR, "h2[class=title]")
-	credit_operate = (By.CSS_SELECTOR, "i[class='fa fa-eye']")
+	credit_operate = (By.CSS_SELECTOR, "tbody > tr:nth-child(1) > td:nth-child(9) > a > i")
 	product = (By.CSS_SELECTOR, "tr:nth-child(1) > td:nth-child(4)")
 
 	@allure.step("检查授信列表")
@@ -22,9 +22,8 @@ class Credit(Base):
 
 	@allure.step("跳转授信详情页面")
 	def page_credit_detail(self):
-		n = self.find_elements(*self.credit_operate)[0]
 		y = self.find_element(*self.product).text
-		n.click()
+		n = self.element_click(*self.credit_operate)
 		return CreditDetail(self.driver, y)
 
 
