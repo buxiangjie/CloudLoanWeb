@@ -91,18 +91,21 @@ class Index(Base):
 	@allure.step("跳转授信页面")
 	def page_credit(self):
 		self.show_menu("0")
+		time.sleep(1)
 		self.element_click(*self.credit)
 		return Credit(self.driver)
 
 	@allure.step("跳转授信统计")
 	def page_credit_statistics(self):
 		self.show_menu("0")
+		time.sleep(1)
 		self.element_click(*self.credit_statistics)
 		return CreditStatistics(self.driver)
 
 	@allure.step("跳转进件")
 	def page_apply(self):
 		self.show_menu("0")
+		time.sleep(1)
 		self.element_click(*self.apply)
 		return Apply(self.driver)
 
@@ -133,6 +136,7 @@ class Index(Base):
 	@allure.step("跳转资产列表")
 	def page_asset_list(self):
 		self.show_menu("2")
+		time.sleep(1)
 		self.element_click(*self.asset_list)
 		return AssetList(self.driver)
 
@@ -152,12 +156,14 @@ class Index(Base):
 	@allure.step("跳转分账")
 	def page_split(self):
 		self.show_menu("3")
+		time.sleep(1)
 		self.element_click(*self.split)
 		return Split(self.driver)
 
 	@allure.step("跳转分账报表")
 	def page_split_report(self):
 		self.show_menu("3")
+		time.sleep(1)
 		self.element_click(*self.split_report)
 		return SplitReport(self.driver)
 
@@ -193,7 +199,6 @@ class Index(Base):
 
 	@allure.step("跳转额度中心")
 	def page_quote_center(self):
-		time.sleep(1)
 		self.show_menu("4")
 		time.sleep(1)
 		self.element_click(*self.quote_center)
@@ -201,7 +206,7 @@ class Index(Base):
 
 	@allure.step("跳转渠道产品额度")
 	def page_channel_product_quote(self):
-		time.sleep(1)
 		self.show_menu("4")
+		time.sleep(1)
 		self.element_click(*self.channel_product_quote)
 		return ChannelProductQuote(self.driver)

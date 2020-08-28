@@ -21,7 +21,7 @@ class TestSaas:
 
 	@allure.title("变更日志")
 	@allure.severity("critical")
-	def test_check_change_log(self, drivers, login):
+	def test_check_change_log(self, drivers, login, back_asset):
 		"""检查变更日志"""
 		page_change_log = Index(drivers).page_asset_list().page_asset_detail().page_change_log()
 		page_change_log.check_change_log()
