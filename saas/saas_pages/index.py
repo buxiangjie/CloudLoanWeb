@@ -150,6 +150,7 @@ class Index(Base):
 	@allure.step("跳转在贷统计")
 	def page_asset_loan_statistics(self):
 		self.show_menu("2")
+		time.sleep(1)
 		self.element_click(*self.asset_loan_statistics)
 		return AssetLoanStatistics(self.driver)
 
