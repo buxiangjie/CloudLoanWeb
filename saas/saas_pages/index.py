@@ -43,6 +43,7 @@ class Index(Base):
 	migration_rate = (By.CSS_SELECTOR, "a[title=迁徙率]")
 	loan_statistics = (By.CSS_SELECTOR, "a[title=放款统计]")
 	repay_statistics = (By.CSS_SELECTOR, "a[title=还款统计]")
+	asset_list = (By.CSS_SELECTOR, "a[href*='assetsList']")
 	asset_loan_statistics = (By.CSS_SELECTOR, "a[title=在贷统计]")
 	man = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > a")
 	operate_log = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > div >button")
