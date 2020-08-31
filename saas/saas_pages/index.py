@@ -119,12 +119,14 @@ class Index(Base):
 	@allure.step("跳转放款统计")
 	def page_loan_statistics(self):
 		self.show_menu("1")
+		time.sleep(1)
 		self.element_click(*self.loan_statistics)
 		return LoanStatistics(self.driver)
 
 	@allure.step("跳转还款统计")
 	def page_repay_statistics(self):
 		self.show_menu("1")
+		time.sleep(1)
 		self.element_click(*self.repay_statistics)
 		return RepayStatistics(self.driver)
 
@@ -172,6 +174,7 @@ class Index(Base):
 	@allure.step("跳转债转合同确认")
 	def page_swap_contract_confirm(self):
 		self.show_menu("3")
+		time.sleep(1)
 		self.element_click(*self.swap_contract_confirm)
 		return SwapContractConfirm(self.driver)
 
