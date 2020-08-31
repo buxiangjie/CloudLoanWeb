@@ -107,12 +107,14 @@ class Index(Base):
 	@allure.step("跳转进件统计")
 	def page_apply_statistics(self):
 		self.show_menu("0")
+		time.sleep(1)
 		self.element_click(*self.apply_statistics)
 		return ApplyStatistics(self.driver)
 
 	@allure.step("跳转迁徙率")
 	def page_migration_rate(self):
 		self.show_menu("0")
+		time.sleep(1)
 		self.element_click(*self.migration_rate)
 		return MigrationRate(self.driver)
 
