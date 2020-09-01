@@ -135,7 +135,6 @@ class Index(Base):
 	@allure.step("跳转资产列表")
 	def page_asset_list(self):
 		self.show_menu("2")
-		time.sleep(1)
 		self.element_click(*self.asset_list)
 		return AssetList(self.driver)
 

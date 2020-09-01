@@ -74,11 +74,14 @@ def _capture_screenshot():
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
-	chrome_options = Options()
-	chrome_options.add_argument('--headless')
-	chrome_options.add_argument('--no-sandbox')
-	chrome_options.add_argument('--window-size=1920,1080')
-	driver = webdriver.Chrome(options=chrome_options)
+	try:
+		chrome_options = Options()
+		chrome_options.add_argument('--headless')
+		chrome_options.add_argument('--no-sandbox')
+		chrome_options.add_argument('--window-size=1920,1080')
+		driver = webdriver.Chrome(options=chrome_options)
+	except Exception as e:
+		raise e
 
 	@allure.step("关闭浏览器")
 	def fn():
@@ -89,43 +92,54 @@ def drivers(request):
 	request.addfinalizer(fn)
 	return driver
 
+
 @allure.step("登录神卫跳转SAAS系统")
 @pytest.fixture(scope="session")
 def login(drivers, env):
 	Base(driver=drivers, url=env).open()
 	Login(driver=drivers, url=env).login(env)
 
+
 @pytest.fixture(scope="function")
 def back_risk(request):
 	@allure.step("测试用例结束后初始化风控")
 	def fn():
 		Index(driver).hidden_menu("0")
+
 	request.addfinalizer(fn)
+
 
 @pytest.fixture(scope="function")
 def back_capital(request):
 	@allure.step("测试用例结束后初始化资金运营")
 	def fn():
 		Index(driver).hidden_menu("1")
+
 	request.addfinalizer(fn)
+
 
 @pytest.fixture(scope="function")
 def back_asset(request):
 	@allure.step("测试用例结束后初始化资产")
 	def fn():
 		Index(driver).hidden_menu("2")
+
 	request.addfinalizer(fn)
+
 
 @pytest.fixture(scope="function")
 def back_finance(request):
 	@allure.step("测试用例结束后初始化财务")
 	def fn():
 		Index(driver).hidden_menu("3")
+
 	request.addfinalizer(fn)
+
 
 @pytest.fixture(scope="function")
 def back_quote(request):
 	@allure.step("测试用例结束后初始化用户/额度管理")
 	def fn():
 		Index(driver).hidden_menu("4")
+
 	request.addfinalizer(fn)
