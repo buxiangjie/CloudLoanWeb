@@ -11,7 +11,6 @@ import base64
 import allure
 import shutil
 import sys
-import time
 
 from datetime import datetime
 from selenium import webdriver
