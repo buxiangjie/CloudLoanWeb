@@ -238,5 +238,12 @@ class TestSaas:
 		page_business_switch = Index(drivers).page_business_switch()
 		page_business_switch.effect_business_switch()
 
+	@allure.title("根据产品名称牙医贷筛选")
+	@allure.severity("blocker")
+	def test_product_name_search(self, drivers, login, back_risk):
+		"""根据产品名称牙医贷筛选"""
+		page_credit = Index(drivers).page_credit()
+		page_credit.product_name_search()
+
 if __name__ == '__main__':
 	pytest.main()

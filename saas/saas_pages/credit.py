@@ -15,6 +15,9 @@ class Credit(Base):
 	title = (By.CSS_SELECTOR, "h2[class=title]")
 	credit_operate = (By.CSS_SELECTOR, "tbody > tr:nth-child(1) > td:nth-child(9) > a > i")
 	product = (By.CSS_SELECTOR, "tr:nth-child(1) > td:nth-child(4)")
+	product_name = (By.CSS_SELECTOR, "li[class=select-ul-item] > img")
+	search = (By.CSS_SELECTOR, "span[class=muselect-btn] > button:nth-child(1)")
+	search_detail = (By.CSS_SELECTOR, "tbody > tr")
 
 	@allure.step("检查授信列表")
 	def check_credit(self):
@@ -25,6 +28,13 @@ class Credit(Base):
 		y = self.find_element(*self.product).text
 		n = self.element_click(*self.credit_operate)
 		return CreditDetail(self.driver, y)
+
+	@allure.step("根据产品名称牙医贷筛选-检查筛选结果")
+	def product_name_search(self):
+		self.find_elements(*self.product_name)[4].click()
+		self.element_click(*self.search)
+		for i in self.find_elements(*self.search_detail):
+			assert "牙医贷" in i.text
 
 
 class CreditDetail(Base):
