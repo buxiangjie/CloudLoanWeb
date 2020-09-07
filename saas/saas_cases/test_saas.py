@@ -217,6 +217,13 @@ class TestSaas:
 		page_channel_product_quote = Index(drivers).page_channel_product_quote()
 		page_channel_product_quote.check_channel_product_quote()
 
+	@allure.title("调整渠道产品额度")
+	@allure.severity("blocker")
+	def test_adjustment_channel_quote(self, drivers, login, back_quote):
+		"""调整渠道产品额度"""
+		page_adjustment_channel_quote = Index(drivers).page_channel_product_quote()
+		page_adjustment_channel_quote.adjustment_channel_quote()
+
 
 if __name__ == '__main__':
 	pytest.main()
