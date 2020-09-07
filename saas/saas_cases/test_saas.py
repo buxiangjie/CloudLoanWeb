@@ -224,6 +224,19 @@ class TestSaas:
 		page_adjustment_channel_quote = Index(drivers).page_channel_product_quote()
 		page_adjustment_channel_quote.adjustment_channel_quote()
 
+	@allure.title("保存风控配置")
+	@allure.severity("blocker")
+	def test_save_risk_basic_rules(self, drivers, login):
+		"""保存风控配置"""
+		page_risk_basic = Index(drivers).page_risk_config()
+		page_risk_basic.save_basic_rules()
+
+	@allure.title("生效业务开关")
+	@allure.severity("blocker")
+	def test_effect_business_switch(self, drivers, login):
+		"""生效业务开关"""
+		page_business_switch = Index(drivers).page_business_switch()
+		page_business_switch.effect_business_switch()
 
 if __name__ == '__main__':
 	pytest.main()
