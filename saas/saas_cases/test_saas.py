@@ -245,5 +245,13 @@ class TestSaas:
 		page_credit = Index(drivers).page_credit()
 		page_credit.product_name_search()
 
+	@allure.title("减免申请")
+	@allure.severity("blocker")
+	def test_relief(self, drivers, login, back_asset):
+		"""检查减免申请"""
+		page_relief = Index(drivers).page_asset_list().page_asset_detail().page_repayment_plan_list().page_relief()
+		page_relief.check_relief()
+
+
 if __name__ == '__main__':
 	pytest.main()

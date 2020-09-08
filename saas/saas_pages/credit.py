@@ -26,7 +26,7 @@ class Credit(Base):
 	@allure.step("跳转授信详情页面")
 	def page_credit_detail(self):
 		y = self.find_element(*self.product).text
-		n = self.element_click(*self.credit_operate)
+		self.element_click(*self.credit_operate)
 		return CreditDetail(self.driver, y)
 
 	@allure.step("根据产品名称牙医贷筛选-检查筛选结果")

@@ -83,7 +83,7 @@ class Common:
 	@staticmethod
 	@allure.step("获取driver地址")
 	def get_driver_path():
-		global fi
+		fi = ""
 		if platform.system() == "Darwin":
 			fi = Config().get_item("DriverPath", "Darwin")
 		elif platform.system() == "Windows":
@@ -111,8 +111,8 @@ class Common:
 		:param num: how long time
 		:return: for example 2020-07-28 11:11:11
 		"""
-		global new_times
 		times = datetime.datetime.now()
+		new_times = ""
 		if when == "after":
 			if what == "days":
 				new_times = times + datetime.timedelta(days=num)
