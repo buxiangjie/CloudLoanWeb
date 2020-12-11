@@ -12,19 +12,19 @@ import allure
 import shutil
 import sys
 
+# 把当前目录的父目录加到sys.path中
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from common.base import Base
-from saas.saas_pages.login import Login
+from common.login import Login
 from saas.saas_pages.index import Index
-
-# 把当前目录的父目录加到sys.path中
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 
 def pytest_addoption(parser):
-	parser.addoption("--env", default="saas_qa", help="script run enviroment")
+	parser.addoption("--env", default="saas_qa", help="script run environment")
 
 
 @pytest.fixture(scope="session")
@@ -69,7 +69,7 @@ def _capture_screenshot():
 	return imagebase64.decode()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
@@ -93,15 +93,15 @@ def drivers(request):
 
 
 @allure.step("登录神卫跳转SAAS系统")
-@pytest.fixture(scope="session")
-def login(drivers, env):
-	Base(driver=drivers, url=env).open()
-	Login(driver=drivers, url=env).login(env)
+@pytest.fixture(scope="session", autouse=True)
+def login(env):
+	Base(driver=driver, url=env).open()
+	Login(driver=driver, url=env).login(env)
 
 
 @pytest.fixture(scope="function")
-def back_risk(request):
-	@allure.step("测试用例结束后初始化风控")
+def back_business_inquiry(request):
+	@allure.step("测试用例结束后初始化业务查询")
 	def fn():
 		Index(driver).hidden_menu("0")
 
@@ -109,8 +109,8 @@ def back_risk(request):
 
 
 @pytest.fixture(scope="function")
-def back_capital(request):
-	@allure.step("测试用例结束后初始化资金运营")
+def back_financial_statistics(request):
+	@allure.step("测试用例结束后初始化财务统计")
 	def fn():
 		Index(driver).hidden_menu("1")
 
@@ -118,8 +118,8 @@ def back_capital(request):
 
 
 @pytest.fixture(scope="function")
-def back_asset(request):
-	@allure.step("测试用例结束后初始化资产")
+def back_business_management(request):
+	@allure.step("测试用例结束后初始化业务管理")
 	def fn():
 		Index(driver).hidden_menu("2")
 
@@ -127,18 +127,9 @@ def back_asset(request):
 
 
 @pytest.fixture(scope="function")
-def back_finance(request):
-	@allure.step("测试用例结束后初始化财务")
+def back_business_statistics(request):
+	@allure.step("测试用例结束后初始化业务统计")
 	def fn():
 		Index(driver).hidden_menu("3")
-
-	request.addfinalizer(fn)
-
-
-@pytest.fixture(scope="function")
-def back_quote(request):
-	@allure.step("测试用例结束后初始化用户/额度管理")
-	def fn():
-		Index(driver).hidden_menu("4")
 
 	request.addfinalizer(fn)

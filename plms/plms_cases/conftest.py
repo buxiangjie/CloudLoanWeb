@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 """
 @auth:buxiangjie
-@date:2020-05-12 11:26:00
+@date:2020-08-20 13:35
 @describe: 
 """
 
@@ -10,34 +10,39 @@ import pytest
 import base64
 import allure
 import shutil
-
-from datetime import datetime
-from selenium import webdriver
-
 import sys
 
 # 把当前目录的父目录加到sys.path中
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
+from datetime import datetime
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from common.base import Base
+from common.login import Login
+
 
 def pytest_addoption(parser):
-	parser.addoption("--env", default="qa", help="script run environment")
+	parser.addoption("--env", default="plms_qa", help="script run environment")
 
 
 @pytest.fixture(scope="session")
 def env(request):
 	return request.config.getoption("--env")
 
+
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item):
 	"""
 	当测试失败的时候，自动截图，展示到html报告中
-	:param
+	:param item:
+	:return:
 	"""
 	pytest_html = item.config.pluginmanager.getplugin('html')
 	outcome = yield
 	report = outcome.get_result()
 	extra = getattr(report, 'extra', [])
+
 	if report.when == 'call' or report.when == "setup":
 		xfail = hasattr(report, 'wasxfail')
 		if (report.skipped and xfail) or (report.failed and not xfail):
@@ -48,6 +53,7 @@ def pytest_runtest_makereport(item):
 						οnclick="window.open(this.src)" align="right"/></div>'''
 				extra.append(pytest_html.extras.html(htmls))
 		report.extra = extra
+
 
 def _capture_screenshot():
 	"""截图保存为base64"""
@@ -61,26 +67,17 @@ def _capture_screenshot():
 		imagebase64 = base64.b64encode(f.read())
 	return imagebase64.decode()
 
-@pytest.fixture(scope='session')
+
+@pytest.fixture(scope="session", autouse=True)
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
-	# chrome_options = Options()
-	# chrome_options.add_argument('--headless')
-	# chrome_options.add_argument('--no-sandbox')
-	# chrome_options.add_argument('--window-size=1920,1080')
-	# driver = webdriver.Chrome(options=chrome_options)
 	try:
-		driver = webdriver.Remote(
-			# 设定Node节点的URL地址，后续将通过访问这个地址连接到Node计算机
-			command_executor='http://192.168.8.66:4444/wd/hub',  # 要和节点机显示的ip地址一样
-			desired_capabilities={
-				# 指定远程计算机执行使用的浏览器为chrome；或者internet explorer/firefox
-				"browserName": "firefox",
-				# 远程计算机的平台
-				"platform": "Any"
-			}
-		)
+		chrome_options = Options()
+		# chrome_options.add_argument('--headless')
+		# chrome_options.add_argument('--no-sandbox')
+		chrome_options.add_argument('--window-size=1920,1080')
+		driver = webdriver.Chrome(options=chrome_options)
 	except Exception as e:
 		raise e
 
@@ -89,5 +86,19 @@ def drivers(request):
 		driver.quit()
 		if os.path.exists("./screenshot"):
 			shutil.rmtree("./screenshot")
+
 	request.addfinalizer(fn)
 	return driver
+
+
+# @allure.step("登录神卫跳转SAAS系统")
+# @pytest.fixture(scope="session", autouse=True)
+# def login(drivers, env):
+# 	Base(driver=drivers, url=env).open()
+# 	Login(driver=drivers, url=env).login(env)
+
+@allure.step("登录{}催收系统".format(env))
+@pytest.fixture(scope="function")
+def login_plms(env):
+	Base(driver=driver, url=env).open()
+	Login(driver=driver, url=env).login_plms(env)
