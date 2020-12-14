@@ -28,7 +28,7 @@ class Base:
 
 	@allure.step("打开页面:{}".format(0))
 	def open(self, url=""):
-		url = self,url
+		url = self.url
 		self.driver.get(url)
 
 	@allure.step("查找元素")
