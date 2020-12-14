@@ -13,6 +13,7 @@ import shutil
 
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 import sys
 
@@ -65,24 +66,24 @@ def _capture_screenshot():
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
-	# chrome_options = Options()
-	# chrome_options.add_argument('--headless')
-	# chrome_options.add_argument('--no-sandbox')
-	# chrome_options.add_argument('--window-size=1920,1080')
-	# driver = webdriver.Chrome(options=chrome_options)
-	try:
-		driver = webdriver.Remote(
-			# 设定Node节点的URL地址，后续将通过访问这个地址连接到Node计算机
-			command_executor='http://192.168.8.66:4444/wd/hub',  # 要和节点机显示的ip地址一样
-			desired_capabilities={
-				# 指定远程计算机执行使用的浏览器为chrome；或者internet explorer/firefox
-				"browserName": "firefox",
-				# 远程计算机的平台
-				"platform": "Any"
-			}
-		)
-	except Exception as e:
-		raise e
+	chrome_options = Options()
+	chrome_options.add_argument('--headless')
+	chrome_options.add_argument('--no-sandbox')
+	chrome_options.add_argument('--window-size=1920,1080')
+	driver = webdriver.Chrome(options=chrome_options)
+	# try:
+	# 	driver = webdriver.Remote(
+	# 		# 设定Node节点的URL地址，后续将通过访问这个地址连接到Node计算机
+	# 		command_executor='http://192.168.8.66:4444/wd/hub',  # 要和节点机显示的ip地址一样
+	# 		desired_capabilities={
+	# 			# 指定远程计算机执行使用的浏览器为chrome；或者internet explorer/firefox
+	# 			"browserName": "firefox",
+	# 			# 远程计算机的平台
+	# 			"platform": "Any"
+	# 		}
+	# 	)
+	# except Exception as e:
+	# 	raise e
 
 	@allure.step("关闭浏览器")
 	def fn():

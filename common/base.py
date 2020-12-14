@@ -26,9 +26,10 @@ class Base:
 		self.driver = driver
 		self.url = Config().get_item("URL", url)
 
-	@allure.step("打开浏览器")
-	def open(self):
-		self.driver.get(self.url)
+	@allure.step("打开页面:{}".format(0))
+	def open(self, url):
+		url = self,url
+		self.driver.get(url)
 
 	@allure.step("查找元素")
 	def find_element(self, *loc: tuple, times=20):
