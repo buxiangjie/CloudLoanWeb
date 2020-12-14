@@ -69,14 +69,14 @@ def _capture_screenshot():
 	return imagebase64.decode()
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 @allure.step("打开浏览器")
 def drivers(request):
 	global driver
 	try:
 		chrome_options = Options()
-		chrome_options.add_argument('--headless')
-		chrome_options.add_argument('--no-sandbox')
+		# chrome_options.add_argument('--headless')
+		# chrome_options.add_argument('--no-sandbox')
 		chrome_options.add_argument('--window-size=1920,1080')
 		driver = webdriver.Chrome(options=chrome_options)
 	except Exception as e:
@@ -94,7 +94,7 @@ def drivers(request):
 
 @allure.step("登录神卫跳转SAAS系统")
 @pytest.fixture(scope="session", autouse=True)
-def login(env):
+def login(env, drivers):
 	Base(driver=driver, url=env).open()
 	Login(driver=driver, url=env).login(env)
 

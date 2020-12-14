@@ -20,6 +20,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from common.base import Base
 from common.login import Login
+from plms.plms_pages.index import Index
 
 
 def pytest_addoption(parser):
@@ -102,3 +103,8 @@ def drivers(request):
 def login_plms(env):
 	Base(driver=driver, url=env).open()
 	Login(driver=driver, url=env).login_plms(env)
+
+@allure.step("展开案件管理下拉列表")
+@pytest.fixture(scope="function")
+def case_management(env):
+	Index(driver=driver, url=env).show_menu("0")

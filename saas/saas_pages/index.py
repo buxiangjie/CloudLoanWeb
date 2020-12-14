@@ -33,7 +33,7 @@ class Index(Base):
 	credit = (By.CSS_SELECTOR, "a[title=授信]")
 	apply = (By.CSS_SELECTOR, "a[title=进件]")
 	loan_statistics = (By.CSS_SELECTOR, "a[title=借款统计]")
-	repay_statistics = (By.CSS_SELECTOR, "a[title=还款统计]")
+	repay_statistics = (By.CSS_SELECTOR, "a[title=放款统计]")
 	asset_list = (By.CSS_SELECTOR, "a[href*='assetsList']")
 	man = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > a")
 	operate_log = (By.CSS_SELECTOR, "ul:nth-child(3) > li:nth-child(1) > div >button")
@@ -91,7 +91,7 @@ class Index(Base):
 		self.element_click(*self.loan_statistics)
 		return LoanStatistics(self.driver)
 
-	@allure.step("跳转还款统计")
+	@allure.step("跳转放款统计")
 	def page_repay_statistics(self):
 		self.show_menu("3")
 		time.sleep(1)
