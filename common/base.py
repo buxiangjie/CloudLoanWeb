@@ -27,7 +27,7 @@ class Base:
 		self.url = Config().get_item("URL", url)
 
 	@allure.step("打开页面:{}".format(0))
-	def open(self, url):
+	def open(self, url=""):
 		url = self,url
 		self.driver.get(url)
 
