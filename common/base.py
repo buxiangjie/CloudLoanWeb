@@ -48,7 +48,7 @@ class Base:
 		except Exception as e:
 			raise e
 
-	@allure.step("向元素:{2},输入文本{3}")
+	@allure.step("向元素:{2},输入文本{text}")
 	def send_keys(self, *loc: tuple, text, is_clear=True):
 		try:
 			if is_clear is True:
