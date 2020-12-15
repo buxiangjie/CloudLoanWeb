@@ -16,8 +16,16 @@ from plms.plms_pages.index import Index
 class TestPlms:
 
 	@allure.title("首页")
-	def test_index(self, drivers, login_plms):
+	def test_index(self, drivers):
 		Index(drivers).check_index()
+
+	@allure.title("检查案件列表")
+	def test_check_case_list(self, drivers, case_management):
+		Index(drivers).case_list().check_case_list()
+
+	@allure.title("检查列表内容")
+	def test_check_case_list_detail(self, drivers, case_management):
+		Index(drivers).case_list().check_case_list_detail()
 
 
 if __name__ == '__main__':

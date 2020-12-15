@@ -99,8 +99,8 @@ def drivers(request):
 # 	Login(driver=drivers, url=env).login(env)
 
 @allure.step("登录{}催收系统".format(env))
-@pytest.fixture(scope="function")
-def login_plms(env):
+@pytest.fixture(scope="session", autouse=True)
+def login_plms(env, drivers):
 	Base(driver=driver, url=env).open()
 	Login(driver=driver, url=env).login_plms(env)
 
@@ -108,3 +108,28 @@ def login_plms(env):
 @pytest.fixture(scope="function")
 def case_management(env):
 	Index(driver=driver, url=env).show_menu("0")
+
+@allure.step("展开委案管理下拉列表")
+@pytest.fixture(scope="function")
+def commission_management(env):
+	Index(driver=driver, url=env).show_menu("1")
+
+@allure.step("展开还款管理下拉列表")
+@pytest.fixture(scope="function")
+def repayment_management(env):
+	Index(driver=driver, url=env).show_menu("2")
+
+@allure.step("展开催记管理下拉列表")
+@pytest.fixture(scope="function")
+def collection_management(env):
+	Index(driver=driver, url=env).show_menu("3")
+
+@allure.step("展开分案策略配置下拉列表")
+@pytest.fixture(scope="function")
+def assign_case_deploy(env):
+	Index(driver=driver, url=env).show_menu("4")
+
+@allure.step("展开分案策略配置下拉列表")
+@pytest.fixture(scope="function")
+def collection_company_management(env):
+	Index(driver=driver, url=env).show_menu("5")

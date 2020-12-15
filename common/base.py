@@ -16,6 +16,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium import webdriver
 
 from config.configer import Config
 
@@ -23,10 +24,11 @@ from config.configer import Config
 class Base:
 
 	def __init__(self, driver, url="cloudloanweb_prod"):
+		# self.driver = webdriver.Chrome()
 		self.driver = driver
 		self.url = Config().get_item("URL", url)
 
-	@allure.step("打开页面:{}".format(0))
+	@allure.step("打开页面")
 	def open(self, url=""):
 		url = self.url
 		self.driver.get(url)
@@ -47,7 +49,8 @@ class Base:
 		except Exception as e:
 			raise e
 
-	def send_keys(self, *loc, text, is_clear=True):
+	@allure.step("向元素:{1},输入文本{2}")
+	def send_keys(self, *loc: tuple, text, is_clear=True):
 		try:
 			if is_clear is True:
 				self.find_element(*loc).clear()
@@ -57,16 +60,27 @@ class Base:
 		except Exception as e:
 			raise e
 
-	@allure.step("点击按钮")
+	@allure.step("获取元素文本:{1}")
+	def get_text(self, *loc: tuple):
+		try:
+			return self.find_element(*loc).text
+		except Exception as e:
+			raise e
+
+	@allure.step("点击元素:{1}")
 	def element_click(self, *loc: tuple):
 		try:
 			self.find_element(*loc).click()
 		except Exception as e:
 			raise e
 
+	@allure.step("执行JS")
 	def excute_script(self, js: str, element=None):
 		"""执行JS命令"""
-		self.driver.execute_script(js, element)
+		try:
+			self.driver.execute_script(js, element)
+		except Exception as e:
+			raise e
 
 	def scroll(self, x=None, y=None, element= None):
 		"""滚动屏幕"""
