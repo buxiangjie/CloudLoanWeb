@@ -29,9 +29,8 @@ class Base:
 		self.url = Config().get_item("URL", url)
 
 	@allure.step("打开页面")
-	def open(self, url=""):
-		url = self.url
-		self.driver.get(url)
+	def open(self):
+		self.driver.get(self.url)
 
 	@allure.step("查找元素")
 	def find_element(self, *loc: tuple, times=20):
@@ -49,7 +48,7 @@ class Base:
 		except Exception as e:
 			raise e
 
-	@allure.step("向元素:{1},输入文本{2}")
+	@allure.step("向元素:{2},输入文本{3}")
 	def send_keys(self, *loc: tuple, text, is_clear=True):
 		try:
 			if is_clear is True:
@@ -60,21 +59,21 @@ class Base:
 		except Exception as e:
 			raise e
 
-	@allure.step("获取元素文本:{1}")
+	@allure.step("获取元素文本")
 	def get_text(self, *loc: tuple):
 		try:
 			return self.find_element(*loc).text
 		except Exception as e:
 			raise e
 
-	@allure.step("点击元素:{1}")
+	@allure.step("点击元素:{2}")
 	def element_click(self, *loc: tuple):
 		try:
 			self.find_element(*loc).click()
 		except Exception as e:
 			raise e
 
-	@allure.step("执行JS")
+	@allure.step("执行JS:{js}")
 	def excute_script(self, js: str, element=None):
 		"""执行JS命令"""
 		try:
@@ -82,6 +81,7 @@ class Base:
 		except Exception as e:
 			raise e
 
+	@allure.step("滚动屏幕")
 	def scroll(self, x=None, y=None, element= None):
 		"""滚动屏幕"""
 		try:
