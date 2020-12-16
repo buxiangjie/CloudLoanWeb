@@ -16,7 +16,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium import webdriver
+from typing import Optional, Union
 
 from config.configer import Config
 
@@ -37,67 +37,67 @@ class Base:
 		try:
 			WebDriverWait(self.driver, times).until(EC.visibility_of_all_elements_located(loc))
 			return self.driver.find_element(*loc)
-		except Exception as e:
-			raise e
+		except Exception:
+			raise
 
 	@allure.step("查找多元素")
-	def find_elements(self, *loc: tuple, times=20):
+	def find_elements(self, *loc: tuple, times=20) -> list:
 		try:
 			WebDriverWait(self.driver, times).until(EC.visibility_of_all_elements_located(loc))
 			return self.driver.find_elements(*loc)
-		except Exception as e:
-			raise e
+		except Exception:
+			raise
 
 	@allure.step("向元素:{2},输入文本{text}")
-	def send_keys(self, *loc: tuple, text, is_clear=True):
+	def send_keys(self, *loc: tuple, text: str, is_clear: bool=False):
 		try:
 			if is_clear is True:
 				self.find_element(*loc).clear()
 				self.find_element(*loc).send_keys(text)
 			else:
 				self.find_element(*loc).send_keys(text)
-		except Exception as e:
-			raise e
+		except Exception:
+			raise
 
 	@allure.step("获取元素文本")
-	def get_text(self, *loc: tuple):
+	def get_text(self, *loc: tuple) -> str:
 		try:
 			return self.find_element(*loc).text
-		except Exception as e:
-			raise e
+		except Exception:
+			raise
 
 	@allure.step("点击元素:{2}")
 	def element_click(self, *loc: tuple):
 		try:
 			self.find_element(*loc).click()
-		except Exception as e:
-			raise e
+		except Exception:
+			raise
 
 	@allure.step("执行JS:{js}")
-	def excute_script(self, js: str, element=None):
+	def excute_script(self, js: str, element: bool=False):
 		"""执行JS命令"""
 		try:
 			self.driver.execute_script(js, element)
-		except Exception as e:
-			raise e
+		except Exception:
+			raise
 
 	@allure.step("滚动屏幕")
-	def scroll(self, x=None, y=None, element= None):
+	def scroll(self, x: Optional[str], y: Optional[str], element= None):
 		"""滚动屏幕"""
 		try:
 			if element:
 				self.excute_script("arguments[0].scrollIntoView();", element)
 			else:
 				self.excute_script(f"window.scrollBy({x},{y})")
-		except Exception as e:
-			raise e
+		except Exception:
+			raise
 
 
 class Common:
 
 	@staticmethod
 	@allure.step("获取driver地址")
-	def get_driver_path():
+	def get_driver_path() -> str:
 		fi = ""
 		if platform.system() == "Darwin":
 			fi = Config().get_item("DriverPath", "Darwin")
@@ -115,8 +115,8 @@ class Common:
 				data = f.read()
 			datas = yaml.load(data, Loader=yaml.FullLoader)
 			return datas
-		except Exception as e:
-			raise e
+		except Exception:
+			raise
 
 	@staticmethod
 	def get_new_time(when: str, what: str, num: int) -> str:

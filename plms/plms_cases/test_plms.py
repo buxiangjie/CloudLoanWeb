@@ -11,7 +11,6 @@ import allure
 from plms.plms_pages.index import Index
 
 
-
 @allure.feature("催收系统")
 class TestPlms:
 
@@ -23,10 +22,33 @@ class TestPlms:
 	def test_check_case_list(self, drivers, case_management):
 		Index(drivers).case_list().check_case_list()
 
-	@allure.title("检查列表内容")
-	def test_check_case_list_detail(self, drivers, case_management):
-		Index(drivers).case_list().check_case_list_detail()
+	@allure.title("检查案件详情")
+	def test_check_case_detail(self, drivers, case_management):
+		page_case_detail = Index(drivers).case_list().page_case_detail()
+		page_case_detail.check_case_detail()
 
+	@allure.title("检查还款计划")
+	def test_check_repayment_plan(self, drivers, case_management):
+		page_repayment_plan = Index(drivers).case_list().page_case_detail().page_repayment_plan()
+		page_repayment_plan.check_repayment_plan()
+
+	@allure.title("检查流转记录")
+	def test_check_circulation_record(self, drivers, case_management):
+		page_circulation_record = Index(drivers).case_list().page_case_detail(stu=6).page_circulation_record_detail()
+		page_circulation_record.check_circulation_record()
+
+	@allure.title("检查案件委案")
+	def test_check_commission_case(self, drivers, commission_management):
+		page_commission_case = Index(drivers).commission_case()
+		page_commission_case.check_commission_case()
+
+	@allure.title("检查案件委案跳转案件详情")
+	def test_check_commission_switch_to_case_detail(self, drivers, commission_management):
+		Index(drivers).commission_case().check_switch_to_case_detail()
+
+	@allure.title("检查委案记录")
+	def test_check_commission_record(self, drivers, commission_management):
+		Index(drivers).commission_record().check_commission_record()
 
 if __name__ == '__main__':
 	pytest.main()

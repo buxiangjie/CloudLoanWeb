@@ -98,7 +98,7 @@ def drivers(request):
 # 	Base(driver=drivers, url=env).open()
 # 	Login(driver=drivers, url=env).login(env)
 
-@allure.step("登录{}催收系统".format(env))
+@allure.step("登录{0}环境催收系统")
 @pytest.fixture(scope="session", autouse=True)
 def login_plms(env, drivers):
 	Base(driver=driver, url=env).open()

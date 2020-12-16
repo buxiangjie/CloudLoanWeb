@@ -12,12 +12,14 @@ from selenium.webdriver.common.by import By
 
 from plms.plms_pages.case_list import CaseList
 from plms.plms_pages.commission_case import CommissionCase
+from plms.plms_pages.commission_record import CommissionRecord
 
 
 class Index(Base):
 	system_index = (By.XPATH, "//span[@class='no-redirect']")
 	case_list_button = (By.LINK_TEXT, "案件列表")
-	commission_case = (By.LINK_TEXT, "案件委案")
+	commission_case_button = (By.LINK_TEXT, "案件委案")
+	commission_record_button = (By.LINK_TEXT, "委案记录")
 
 	def show_menu(self, menu_name: str):
 		"""
@@ -44,5 +46,10 @@ class Index(Base):
 
 	@allure.step("跳转案件委案")
 	def commission_case(self):
-		self.element_click(*self.commission_case)
+		self.element_click(*self.commission_case_button)
 		return CommissionCase(self.driver)
+
+	@allure.step("跳转委案记录")
+	def commission_record(self):
+		self.element_click(*self.commission_record_button)
+		return CommissionRecord(self.driver)
