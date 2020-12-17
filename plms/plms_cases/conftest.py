@@ -75,8 +75,8 @@ def drivers(request):
 	global driver
 	try:
 		chrome_options = Options()
-		chrome_options.add_argument('--headless')
-		chrome_options.add_argument('--no-sandbox')
+		# chrome_options.add_argument('--headless')
+		# chrome_options.add_argument('--no-sandbox')
 		chrome_options.add_argument('--window-size=1440,900')
 		driver = webdriver.Chrome(options=chrome_options)
 	except Exception as e:
@@ -129,7 +129,7 @@ def collection_management(env):
 def assign_case_deploy(env):
 	Index(driver=driver, url=env).show_menu("4")
 
-@allure.step("展开分案策略配置下拉列表")
+@allure.step("展开催收公司管理下拉列表")
 @pytest.fixture(scope="function")
 def collection_company_management(env):
 	Index(driver=driver, url=env).show_menu("5")

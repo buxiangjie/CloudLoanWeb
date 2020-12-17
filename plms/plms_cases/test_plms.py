@@ -70,6 +70,16 @@ class TestPlms:
 		page_sound_record = Index(drivers).sound_record()
 		page_sound_record.check_sound_record()
 
+	@allure.title("检查策略列表")
+	def test_check_strategy_list(self, drivers, assign_case_deploy):
+		page_strategy_list = Index(drivers).strategy_list()
+		page_strategy_list.check_strategy_list()
+
+	@allure.title("检查企业列表")
+	def test_check_company_list(self, drivers, collection_company_management):
+		page_company_list = Index(drivers).company_list()
+		page_company_list.check_company_list()
+
 
 if __name__ == '__main__':
 	pytest.main()

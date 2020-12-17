@@ -37,8 +37,8 @@ class Base:
 		try:
 			WebDriverWait(self.driver, times).until(EC.visibility_of_all_elements_located(loc))
 			return self.driver.find_element(*loc)
-		except Exception:
-			raise
+		except Exception as e:
+			raise e
 
 	@allure.step("查找多元素")
 	def find_elements(self, *loc: tuple, times=20) -> list:
@@ -70,8 +70,8 @@ class Base:
 	def element_click(self, *loc: tuple):
 		try:
 			self.find_element(*loc).click()
-		except Exception:
-			raise
+		except Exception as e:
+			raise e
 
 	@allure.step("执行JS:{js}")
 	def excute_script(self, js: str, element: bool=False):

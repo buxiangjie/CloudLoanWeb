@@ -19,7 +19,7 @@ class CaseList(Base):
 	summary_of_current_overdue_amounts = (By.XPATH, "//div[@class='boxWrap']/span[1]")
 	off_time_button = (By.XPATH, "//i[@class='el-input__icon el-range__close-icon']")
 	search_button = (By.XPATH, "//button[@type='button'][1]/span")
-	list_table = (By.XPATH, "//table[@class='el-table__body']")
+	list_table = (By.XPATH, "//table[@class='el-table__body']/tbody")
 	case_id_button = (By.XPATH, "//table[@class='el-table__body']/tbody/tr[1]/td[2]/div/span")
 	case_status_button = (By.XPATH, "//table[@class='el-table__body']/tbody/tr[1]/td[6]")
 	case_status_box = (By.XPATH, "//form/div[12]/div/div/div/div/label[6]/span[1]")
@@ -33,8 +33,8 @@ class CaseList(Base):
 			self.element_click(*self.case_status_box)
 		self.element_click(*self.off_time_button)
 		self.element_click(*self.search_button)
-		for i in self.find_elements(*self.list_table):
-			assert len(i.text) > 0
+		time.sleep(1)
+		assert len(self.find_elements(*self.list_table)[0].text) > 0
 		assert self.get_text(*self.summary_of_current_overdue_amounts) == "当前逾期金额汇总："
 
 	def page_case_detail(self, stu: Optional[int] = None):
@@ -43,6 +43,7 @@ class CaseList(Base):
 		"""
 		self.check_case_list(stu)
 		self.element_click(*self.case_id_button)
+		time.sleep(1)
 		return CaseDetail(self.driver)
 
 

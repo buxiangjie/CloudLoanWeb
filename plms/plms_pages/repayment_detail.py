@@ -27,7 +27,7 @@ class RepaymentDetail(Base):
 				assert len(i.text) > 0
 
 	def switch_to_case_detail(self):
-		if float(self.get_text(*self.recover_amount_2)) > 0:
+		if float(self.get_text(*self.recover_amount_2).replace(",", '')) > 0:
 			self.element_click(*self.case_id)
 			CaseDetail(self.driver).check_case_detail()
 		else:
