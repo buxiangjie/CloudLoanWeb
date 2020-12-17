@@ -5,6 +5,8 @@
 @describe: 案件列表
 """
 
+import time
+
 from common.base import Base
 from selenium.webdriver.common.by import By
 from typing import Optional

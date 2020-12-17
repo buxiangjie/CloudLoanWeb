@@ -50,5 +50,26 @@ class TestPlms:
 	def test_check_commission_record(self, drivers, commission_management):
 		Index(drivers).commission_record().check_commission_record()
 
+	@allure.title("检查还款明细")
+	def test_check_repayment_detail(self, drivers, repayment_management):
+		page_repayment_detail = Index(drivers).repayment_detail()
+		page_repayment_detail.check_repayment_detail()
+
+	@allure.title("检查还款明细跳转案件详情")
+	def test_check_repayment_detail_switch_to_case_detail(self, drivers, repayment_management):
+		page_repayment_detail = Index(drivers).repayment_detail()
+		page_repayment_detail.switch_to_case_detail()
+
+	@allure.title("检查催记")
+	def test_check_collection_list(self, drivers, collection_management):
+		page_collection_list = Index(drivers).collection_list()
+		page_collection_list.check_collection_list()
+
+	@allure.title("检查录音")
+	def test_check_sound_record(self, drivers, collection_management):
+		page_sound_record = Index(drivers).sound_record()
+		page_sound_record.check_sound_record()
+
+
 if __name__ == '__main__':
 	pytest.main()

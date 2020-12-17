@@ -13,6 +13,9 @@ from selenium.webdriver.common.by import By
 from plms.plms_pages.case_list import CaseList
 from plms.plms_pages.commission_case import CommissionCase
 from plms.plms_pages.commission_record import CommissionRecord
+from plms.plms_pages.repayment_detail import RepaymentDetail
+from plms.plms_pages.collection_list import CollectionList
+from plms.plms_pages.sound_record import SoundRecord
 
 
 class Index(Base):
@@ -20,6 +23,9 @@ class Index(Base):
 	case_list_button = (By.LINK_TEXT, "案件列表")
 	commission_case_button = (By.LINK_TEXT, "案件委案")
 	commission_record_button = (By.LINK_TEXT, "委案记录")
+	repayment_detail_button = (By.LINK_TEXT, "还款明细")
+	collection_list_button = (By.LINK_TEXT, "催记")
+	sound_record_button = (By.LINK_TEXT, "录音")
 
 	def show_menu(self, menu_name: str):
 		"""
@@ -53,3 +59,18 @@ class Index(Base):
 	def commission_record(self):
 		self.element_click(*self.commission_record_button)
 		return CommissionRecord(self.driver)
+
+	@allure.step("跳转还款明细")
+	def repayment_detail(self):
+		self.element_click(*self.repayment_detail_button)
+		return RepaymentDetail(self.driver)
+
+	@allure.step("跳转催记")
+	def collection_list(self):
+		self.element_click(*self.collection_list_button)
+		return CollectionList(self.driver)
+
+	@allure.step("录音")
+	def sound_record(self):
+		self.element_click(*self.sound_record_button)
+		return SoundRecord(self.driver)

@@ -5,6 +5,8 @@
 @describe: 
 """
 
+import time
+
 from common.base import Base
 from selenium.webdriver.common.by import By
 from plms.plms_pages.case_list import CaseDetail
@@ -22,6 +24,7 @@ class CommissionCase(Base):
 	def check_commission_case(self):
 		self.element_click(*self.case_status_box)
 		self.element_click(*self.search_button)
+		# time.sleep(0.5)
 		assert self.get_text(*self.no_commission_amount) == "未委案金额汇总："
 		for i in self.find_elements(*self.commission_list):
 			assert len(i.text) > 0
