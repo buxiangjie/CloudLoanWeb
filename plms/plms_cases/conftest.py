@@ -11,6 +11,7 @@ import base64
 import allure
 import shutil
 import sys
+import time
 
 # 把当前目录的父目录加到sys.path中
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
@@ -107,6 +108,7 @@ def login_plms(env, drivers):
 @allure.step("展开案件管理下拉列表")
 @pytest.fixture(scope="function")
 def case_management(env):
+	time.sleep(1)
 	Index(driver=driver, url=env).show_menu("0")
 
 @allure.step("展开委案管理下拉列表")
