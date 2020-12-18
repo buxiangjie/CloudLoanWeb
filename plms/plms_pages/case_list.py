@@ -51,9 +51,9 @@ class CaseDetail(Base):
 	"""
 	案件详情页面
 	"""
-	circulation_record = (By.XPATH, "//div[@class='vue-waterfall-column'][3]/div[2]/div[1]/span[2]")
-	asset_detail = (By.XPATH, "//div[@class='vue-waterfall-column'][2]/div[1]/div[1]/span")
-	repayment_plan_detail = (By.XPATH, "//div[@class='vue-waterfall-column'][1]/div[2]/div[1]/span[2]")
+	circulation_record = (By.XPATH, "//div[@id='circulationRecord']/div[1]/span[2]")
+	asset_detail = (By.XPATH, "//div[@id='assetDetails']/div[1]/span")
+	repayment_plan_detail = (By.XPATH, "//div[@id='repayPlan']/div[1]/span[2]")
 
 	def check_case_detail(self):
 		"""
