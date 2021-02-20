@@ -3,8 +3,8 @@ saas_test:
   password: Asd123456.
 
 saas_qa:
-  username: admin
-  password: Asd123456.
+  username: buxiangjie
+  password: Admin123.
 
 plms_qa:
   username: admin
