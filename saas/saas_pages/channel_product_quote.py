@@ -12,7 +12,7 @@ from common.base import Base
 
 class ChannelProductQuote(Base):
 	channel_product_quote = (By.CSS_SELECTOR, "h2[class=title]")
-	adjustment_channel_quote_button = (By.CSS_SELECTOR, "tbody > tr:nth-child(1) > td:nth-child(8) > span")
+	adjustment_channel_quote_button = (By.XPATH, "//*[@id='DataTables_Table_4']/tbody/tr[1]/td[9]/span")
 	confirm = (By.CSS_SELECTOR, "div[class=modal-btns] > button:nth-child(2)")
 	back_button = (By.CSS_SELECTOR, "button[class=confirm]")
 	confirm_text = (By.CSS_SELECTOR, "div[data-allow-outside-click=false] > h2")
