@@ -10,7 +10,7 @@ from common.base import Base
 
 
 class AboutUs(Base):
-	company_profile = (By.XPATH, '//*[@id="fullpage"]/div[1]/div/div/div[1]/h3')
+	company_profile = (By.CLASS_NAME, ".bannerLogo")
 
 	def check_about_us(self):
 		assert self.find_element(*self.company_profile)
