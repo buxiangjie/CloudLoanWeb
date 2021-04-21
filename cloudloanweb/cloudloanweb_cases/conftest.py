@@ -42,13 +42,14 @@ def pytest_runtest_makereport(item):
 	if report.when == 'call' or report.when == "setup":
 		xfail = hasattr(report, 'wasxfail')
 		if (report.skipped and xfail) or (report.failed and not xfail):
-			screen_img = _capture_screenshot()
-			if screen_img:
-				htmls = f'''<div><img src="data:image/png;base64,{screen_img}"
-						alt="screenshot" style="width:1024px;height:768px;"
-						οnclick="window.open(this.src)" align="right"/></div>'''
-				extra.append(pytest_html.extras.html(htmls))
-		report.extra = extra
+			_capture_screenshot()
+			# screen_img = _capture_screenshot()
+			# if screen_img:
+			# 	htmls = f"""<div><img src="data:image/png;base64,{screen_img}"
+			# 			alt="screenshot" style="width:1024px;height:768px;"
+			# 			οnclick="window.open(this.src)" align="right"/></div>"""
+			# 	extra.append(pytest_html.extras.html(htmls))
+		# report.extra = extra
 
 def _capture_screenshot():
 	"""截图保存为base64"""
@@ -57,10 +58,10 @@ def _capture_screenshot():
 		os.makedirs("screenshot")
 	screen_path = os.path.join("screenshot", f"{now_time}.png")
 	driver.save_screenshot(screen_path)
-	allure.attach.file(screen_path, f"测试失败截图...{now_time}", allure.attachment_type.PNG)
-	with open(screen_path, 'rb') as f:
-		imagebase64 = base64.b64encode(f.read())
-	return imagebase64.decode()
+	allure.attach.file(screen_path, f"异常截图...{now_time}", allure.attachment_type.PNG)
+	# with open(screen_path, 'rb') as f:
+	# 	image_base64 = base64.b64encode(f.read())
+	# return image_base64.decode()
 
 @pytest.fixture(scope='session')
 @allure.step("打开浏览器")
