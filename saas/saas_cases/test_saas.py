@@ -6,11 +6,12 @@
 """
 import allure
 import pytest
+import random
 
 from saas.saas_pages.index import Index
 
 
-@allure.feature("SAAS系统测试")
+@allure.feature(f"SAAS系统测试{random.random()}")
 class TestSaas:
 
 	@allure.title("saas首页")

@@ -7,11 +7,12 @@
 
 import pytest
 import allure
+import random
 
 from plms.plms_pages.index import Index
 
 
-@allure.feature("催收系统")
+@allure.feature(f"催收系统{random.random()}")
 class TestPlms:
 
 	@allure.title("首页")

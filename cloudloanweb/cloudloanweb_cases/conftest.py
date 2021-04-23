@@ -7,13 +7,12 @@
 
 import os
 import pytest
-import base64
 import allure
-import shutil
+import random
 
 from datetime import datetime
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from common.base import Option
 
 import sys
 
@@ -22,12 +21,32 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.
 
 
 def pytest_addoption(parser):
-	parser.addoption("--env", default="qa", help="script run environment")
+	parser.addoption("--env", default="qa", help="运行环境")
+	parser.addoption("--platform", default="win", help="运行系统类型")
+	parser.addoption("--browser", default="chrome", help="浏览器名称")
 
 
 @pytest.fixture(scope="session")
 def env(request):
 	return request.config.getoption("--env")
+
+
+@pytest.fixture(scope="session")
+def platform(request):
+	return request.config.getoption("--platform")
+
+
+@pytest.fixture(scope="session")
+def browser(request):
+	return request.config.getoption("--browser")
+
+
+def pytest_collectstart(collector):
+	collector._nodeid = f"{collector._nodeid}_{random.random()}"
+
+def pytest_itemcollected(item):
+	item._nodeid = f"{item._nodeid}_{random.random()}"
+
 
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item):
@@ -43,13 +62,18 @@ def pytest_runtest_makereport(item):
 		xfail = hasattr(report, 'wasxfail')
 		if (report.skipped and xfail) or (report.failed and not xfail):
 			_capture_screenshot()
-			# screen_img = _capture_screenshot()
-			# if screen_img:
-			# 	htmls = f"""<div><img src="data:image/png;base64,{screen_img}"
-			# 			alt="screenshot" style="width:1024px;height:768px;"
-			# 			οnclick="window.open(this.src)" align="right"/></div>"""
-			# 	extra.append(pytest_html.extras.html(htmls))
-		# report.extra = extra
+
+
+# screen_img = _capture_screenshot()
+# if screen_img:
+# 	htmls = f"""<div><img src="data:image/png;base64,{screen_img}"
+# 			alt="screenshot" style="width:1024px;height:768px;"
+# 			οnclick="window.open(this.src)" align="right"/></div>"""
+# 	extra.append(pytest_html.extras.html(htmls))
+
+
+# report.extra = extra
+
 
 def _capture_screenshot():
 	"""截图保存为base64"""
@@ -59,37 +83,37 @@ def _capture_screenshot():
 	screen_path = os.path.join("screenshot", f"{now_time}.png")
 	driver.save_screenshot(screen_path)
 	allure.attach.file(screen_path, f"异常截图...{now_time}", allure.attachment_type.PNG)
-	# with open(screen_path, 'rb') as f:
-	# 	image_base64 = base64.b64encode(f.read())
-	# return image_base64.decode()
+
+
+# with open(screen_path, 'rb') as f:
+# 	image_base64 = base64.b64encode(f.read())
+# return image_base64.decode()
 
 @pytest.fixture(scope='session')
 @allure.step("打开浏览器")
-def drivers(request):
+def drivers(request, platform, browser):
 	global driver
-	chrome_options = Options()
-	chrome_options.add_argument('--headless')
-	chrome_options.add_argument('--no-sandbox')
-	chrome_options.add_argument('--window-size=1920,1080')
-	driver = webdriver.Chrome(options=chrome_options)
-	# try:
-	# 	driver = webdriver.Remote(
-	# 		# 设定Node节点的URL地址，后续将通过访问这个地址连接到Node计算机
-	# 		command_executor='http://192.168.8.66:4444/wd/hub',  # 要和节点机显示的ip地址一样
-	# 		desired_capabilities={
-	# 			# 指定远程计算机执行使用的浏览器为chrome；或者internet explorer/firefox
-	# 			"browserName": "firefox",
-	# 			# 远程计算机的平台
-	# 			"platform": "Any"
-	# 		}
-	# 	)
-	# except Exception as e:
-	# 	raise e
+	# chrome_options = Options()
+	# chrome_options.add_argument('--headless')
+	# chrome_options.add_argument('--no-sandbox')
+	# chrome_options.add_argument('--window-size=1920,1080')
+	# driver = webdriver.Chrome(options=chrome_options)
+	plat = Option(platform, browser)
+	try:
+		driver = webdriver.Remote(
+			# 设定Node节点的URL地址，后续将通过访问这个地址连接到Node计算机
+			command_executor=plat.PLATFORM,  # 要和节点机显示的ip地址一样
+			desired_capabilities=plat.DESIRED,
+			options=plat.OPTION
+		)
+	except Exception as e:
+		raise e
 
 	@allure.step("关闭浏览器")
-	def fn():
+	def tear_down():
 		driver.quit()
-		if os.path.exists("./screenshot"):
-			shutil.rmtree("./screenshot")
-	request.addfinalizer(fn)
+
+	# if os.path.exists("./screenshot"):
+	# 	shutil.rmtree("./screenshot")
+	request.addfinalizer(tear_down)
 	return driver
