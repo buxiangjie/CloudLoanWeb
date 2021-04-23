@@ -18,6 +18,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.
 from datetime import datetime
 from selenium import webdriver
 from common.base import Base
+from common.base import Option
 from common.login import Login
 
 from plms.plms_pages.index import Index
@@ -81,7 +82,7 @@ def _capture_screenshot():
 
 @pytest.fixture(scope="session", autouse=True)
 @allure.step("打开浏览器")
-def drivers(request):
+def drivers(request, platform, browser):
 	global driver
 	plat = Option(platform, browser)
 	try:

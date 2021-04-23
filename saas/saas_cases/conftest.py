@@ -7,9 +7,7 @@
 
 import os
 import pytest
-import base64
 import allure
-import shutil
 import random
 import sys
 
@@ -82,7 +80,7 @@ def _capture_screenshot():
 
 @pytest.fixture(scope="session")
 @allure.step("打开浏览器")
-def drivers(request):
+def drivers(request, platform, browser):
 	global driver
 	plat = Option(platform, browser)
 	try:
