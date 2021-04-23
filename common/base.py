@@ -164,16 +164,16 @@ class Option(object):
 	@staticmethod
 	def _chrome_option():
 		chrome_options = Options()
-		chrome_options.add_argument('--headless')
-		chrome_options.add_argument('--no-sandbox')
+		# chrome_options.add_argument('--headless')
+		# chrome_options.add_argument('--no-sandbox')
 		chrome_options.add_argument('--window-size=1920,1080')
 		return chrome_options
 
 	@staticmethod
 	def _firefox_option():
 		firefox_options = FireFoxOptions()
-		firefox_options.add_argument('--headless')
-		firefox_options.add_argument('--disable-gpu')
+		# firefox_options.add_argument('--headless')
+		# firefox_options.add_argument('--disable-gpu')
 		firefox_options.add_argument('--window-size=1920,1080')
 		return firefox_options
 
@@ -185,7 +185,7 @@ class Option(object):
 	def _edge_option():
 		edge_options = EdgeOptions()
 		edge_options.use_chromium = True
-		edge_options.add_argument('headless')
-		edge_options.add_argument('disable-gpu')
+		# edge_options.add_argument('headless')
+		# edge_options.add_argument('disable-gpu')
 		edge_options.add_argument('window-size=1920,1080')
 		return edge_options
