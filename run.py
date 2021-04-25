@@ -27,7 +27,7 @@ def get_browser(platform: list):
 
 def run_case(case: list):
 	pytest.main(
-		["-vsq", f"{sys.argv[3]}", "--alluredir=results", f"--env={sys.argv[1]}", "--reruns=3", f"--platform={case[0]}",
+		["-vsq", f"{sys.argv[3]}", "--alluredir=results", f"--env={sys.argv[1]}", "--reruns=2", f"--platform={case[0]}",
 		 f"--browser={case[1]}"])
 
 
