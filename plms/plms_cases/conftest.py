@@ -92,6 +92,7 @@ def drivers(request, platform, browser):
 			desired_capabilities=plat.DESIRED,
 			options=plat.OPTION
 		)
+		driver.set_window_size(1920, 1080)
 	except Exception as e:
 		raise e
 

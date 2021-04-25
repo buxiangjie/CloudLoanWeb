@@ -174,7 +174,7 @@ class Option(object):
 		firefox_options = FireFoxOptions()
 		# firefox_options.add_argument('--headless')
 		# firefox_options.add_argument('--disable-gpu')
-		firefox_options.add_argument('--window-size=1920x1080')
+		firefox_options.add_argument('--window-size=1920,1080')
 		firefox_options.add_argument('--start-maximized')
 		return firefox_options
 
