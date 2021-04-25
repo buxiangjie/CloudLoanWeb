@@ -183,6 +183,7 @@ class TestSaas:
 		page_channel_product_quote = Index(drivers).page_channel_product_quote()
 		page_channel_product_quote.check_channel_product_quote()
 
+	@pytest.mark.skip("跳过")
 	@allure.title("调整渠道产品额度")
 	@allure.severity("blocker")
 	def test_adjustment_channel_quote(self, drivers, back_business_management):
