@@ -10,7 +10,7 @@ from common.base import Base
 
 
 class EnterpriseCulture(Base):
-	culture_and_mission = (By.LINK_TEXT, "文化及使命")
+	culture_and_mission = (By.XPATH, "//div[@class='mission']/div")
 
 	def check_enterprise_culture(self):
-		assert self.find_element(*self.culture_and_mission)
+		assert self.get_text(*self.culture_and_mission) == "公司使命"

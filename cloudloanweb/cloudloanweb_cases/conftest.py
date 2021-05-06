@@ -93,11 +93,6 @@ def _capture_screenshot():
 @allure.step("打开浏览器")
 def drivers(request, platform, browser):
 	global driver
-	# chrome_options = Options()
-	# chrome_options.add_argument('--headless')
-	# chrome_options.add_argument('--no-sandbox')
-	# chrome_options.add_argument('--window-size=1920,1080')
-	# driver = webdriver.Chrome(options=chrome_options)
 	plat = Option(platform, browser)
 	try:
 		driver = webdriver.Remote(
